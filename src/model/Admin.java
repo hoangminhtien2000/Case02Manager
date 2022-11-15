@@ -7,12 +7,6 @@ public class Admin extends Account {
 
     public Admin(int id, String username, String password, String phone, Date birthday) {
         super(id, username, password, phone, birthday);
-
-    }
-
-    public int getIsAdmin() {
-        super.setIsAdmin(1);
-        return super.getIsAdmin();
     }
 
     @Override
@@ -25,5 +19,4 @@ public class Admin extends Account {
                 ", birthday=" + super.getBirthday() +
                 '}';
     }
-
 }

@@ -5,8 +5,8 @@ public class Account {
     private String username;
     private String password;
     private String phone;
-    Date birthday = new Date ();
-    private  int isAdmin=-1;
+    Date birthday = new Date();
+
     public Account() {
     }
 
@@ -52,14 +52,6 @@ public class Account {
 
     public Date getBirthday() {
         return birthday;
-    }
-
-    public int getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     public void setBirthday(Date birthday) {

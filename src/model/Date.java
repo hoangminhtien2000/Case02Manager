@@ -40,8 +40,8 @@ public class Date {
 
     @Override
     public String toString() {
-        return  getDay() +
-                "/" +getMonth() +
-                "/" + getYear() ;
+        return getDay() +
+                "/" + getMonth() +
+                "/" + getYear();
     }
 }

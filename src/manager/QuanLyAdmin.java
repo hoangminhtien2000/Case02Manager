@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class QuanLyAdmin {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void ManagerAdmin(){
+    public static void ManagerAdmin() {
         System.out.println("Bạn đã đăng nhập bằng tài khoản Admin");
+        scanner.nextLine();
         while (true) {
             System.out.println("\nQuản lý Account");
             System.out.println("1. Hiển thị list Account:");
@@ -55,5 +56,4 @@ public class QuanLyAdmin {
             }
         }
     }
-
 }

@@ -18,8 +18,9 @@ public class ManagerProduct {
     }
 
     public static void addArr() {
-        Product product=createProduct();
+        Product product = createProduct();
         products.add(product);
+        System.out.printf("Đã thêm sản phẩm '%s' vào danh sách", product.getName());
     }
 
     public static Product createProduct() {
@@ -32,8 +33,6 @@ public class ManagerProduct {
         System.out.println("Nhập giá sản phẩm: ");
         double price = scanner.nextDouble();
         Product product = new Product(id, name, price);
-
-        System.out.printf("Đã thêm sản phẩm '%s' vào danh sách",product.getName());
         return product;
     }
 

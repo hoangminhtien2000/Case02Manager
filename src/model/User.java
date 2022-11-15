@@ -7,12 +7,6 @@ public class User extends Account {
     public User(int id, String username, String password, String phone, Date birthday) {
         super(id, username, password, phone, birthday);
     }
-
-    public int getIsAdmin() {
-        super.setIsAdmin(0);
-        return super.getIsAdmin();
-    }
-
     @Override
     public String toString() {
         return "User{" +
