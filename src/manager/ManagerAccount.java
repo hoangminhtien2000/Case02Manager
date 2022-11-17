@@ -4,8 +4,10 @@ import model.Account;
 import model.Admin;
 import model.Date;
 import model.User;
+import sort.SortAccount_id;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +25,7 @@ public class ManagerAccount {
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
+            Collections.sort(accounts,new SortAccount_id());
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
@@ -31,8 +34,8 @@ public class ManagerAccount {
     }
 
     public static void addArr() {
-        System.out.println("\t1. FullTime");
-        System.out.println("\t2. PartTime");
+        System.out.println("\t1. Admin");
+        System.out.println("\t2. User");
         System.out.println("Nhập loại tài khoản muốn tạo:");
         int choice = Integer.parseInt(scanner.nextLine());
         if (choice == 1) {
