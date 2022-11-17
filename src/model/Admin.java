@@ -5,7 +5,7 @@ public class Admin extends Account {
     public Admin() {
     }
 
-    public Admin(int id, String username, String password, String phone, Date birthday) {
+    public Admin(int id, String username, String password, String phone, String birthday) {
         super(id, username, password, phone, birthday);
     }
 

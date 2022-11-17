@@ -13,10 +13,15 @@ public class ManagerProduct {
     public static List<Product> products = new ArrayList<>();
 
     static public void show() {
-        Collections.sort(products, new SortProduct_FirstName_LastNumber());
-        for (int i = 0; i < products.size(); i++) {
-            System.out.println(products.get(i).toString());
+        if (products.isEmpty()){
+            System.out.println("Không có sản phẩm nào");
+        }else {
+            Collections.sort(products, new SortProduct_FirstName_LastNumber());
+            for (int i = 0; i < products.size(); i++) {
+                System.out.println(products.get(i).toString());
+            }
         }
+
     }
 
     public static void addArr() {
@@ -86,19 +91,41 @@ public class ManagerProduct {
                 do {
                     System.out.println("Nhập số lượng sản phẩm muốn mua");
                     number = Integer.parseInt(scanner.nextLine());
-                    if (number > products.get(index).getNumber()||number<=0) {
+                    if (number > products.get(index).getNumber() || number <= 0) {
                         System.out.println("\nMời nhập lại số lượng sản phẩm");
                     }
-                } while (products.get(index).getNumber() < number||number<=0);
+                } while (products.get(index).getNumber() < number || number <= 0);
                 products.get(index).buy(number);
-                System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(),number);
-                System.out.println("\nTổng số tiền phải thanh toán: "+products.get(index).covertBill(products.get(index).bill(number)));
+                System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(), number);
+                System.out.println("\nTổng số tiền phải thanh toán: " + products.get(index).covertBill(products.get(index).bill(number)));
                 scanner.nextLine();
 
             } else {
                 System.out.println("Sản phẩm hiện tại đã hết hàng.");
                 scanner.nextLine();
             }
+        }
+    }
+
+    public static void addNumberProduct() {
+        int number;
+        int index;
+        index = Index();
+        if (index == -1) {
+            System.out.println("Sản phẩm không tồn tại.");
+            scanner.nextLine();
+        } else {
+            System.out.println(products.get(index).toString());
+            do {
+                System.out.println("Nhập số lượng sản phẩm muốn thêm");
+                number = Integer.parseInt(scanner.nextLine());
+                if ( number <= 0) {
+                    System.out.println("\nMời nhập lại số lượng sản phẩm");
+                }
+            } while ( number <= 0);
+            products.get(index).addNumber(number);
+            System.out.printf("Đã thêm '%s' với số lượng %d.", products.get(index).getName(), number);
+            scanner.nextLine();
         }
     }
 }

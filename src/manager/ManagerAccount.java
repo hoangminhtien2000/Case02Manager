@@ -2,7 +2,6 @@ package manager;
 
 import model.Account;
 import model.Admin;
-import model.Date;
 import model.User;
 import sort.SortAccount_id;
 
@@ -58,13 +57,7 @@ public class ManagerAccount {
         System.out.println("Nhập Phone Number: ");
         String phone = scanner.nextLine();
         System.out.println("Nhập Birthday: ");
-        System.out.println("Nhập Day: ");
-        int day = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập Month: ");
-        int month = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập Year: ");
-        int year = Integer.parseInt(scanner.nextLine());
-        Date birthday = new Date(day, month, year);
+        String birthday = scanner.nextLine();
         if (isAdmin) {
             Account admins = new Admin(id, username, password, phone, birthday);
             return admins;

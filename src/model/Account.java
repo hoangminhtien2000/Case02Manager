@@ -5,12 +5,12 @@ public class Account {
     private String username;
     private String password;
     private String phone;
-    Date birthday = new Date();
+    private String birthday;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String phone, Date birthday) {
+    public Account(int id, String username, String password, String phone, String birthday) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -50,11 +50,11 @@ public class Account {
         this.phone = phone;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
