@@ -50,8 +50,18 @@ public class ManagerAccount {
         System.out.println("Nhập thông tin tài khoản: ");
         System.out.println("Nhập Id:");
         int id = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập Username: ");
-        String username = scanner.nextLine();
+        int index;
+        String username;
+        do{
+            index=-1;
+            System.out.println("Nhập Username:");
+            username = scanner.nextLine();
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).getUsername().equals(username))
+                    index=i;
+            }
+            if (index !=-1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
+        }while (index !=-1);
         System.out.println("Nhập Password: ");
         String password = scanner.nextLine();
         System.out.println("Nhập Phone Number: ");

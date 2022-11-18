@@ -3,15 +3,12 @@ package manager;
 import model.Product;
 import sort.SortProduct_FirstName_LastNumber;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ManagerProduct {
     public static Scanner scanner = new Scanner(System.in);
     public static List<Product> products = new ArrayList<>();
-
+   // public static Map<String,Product>products=new HashMap<>();
     static public void show() {
         if (products.isEmpty()){
             System.out.println("Không có sản phẩm nào");
@@ -21,7 +18,6 @@ public class ManagerProduct {
                 System.out.println(products.get(i).toString());
             }
         }
-
     }
 
     public static void addArr() {
@@ -31,8 +27,18 @@ public class ManagerProduct {
     }
 
     public static Product createProduct() {
-        System.out.println("Nhập tên sản phẩm: ");
-        String name = scanner.nextLine();
+        int index;
+        String name;
+        do{
+            index=-1;
+            System.out.println("Nhập tên sản phẩm:");
+             name = scanner.nextLine();
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getName().equals(name))
+                    index=i;
+            }
+            if (index !=-1) System.out.println("\nSản phẩm đã tồn tại, mời nhập tên khác.");
+        }while (index !=-1);
         System.out.println("Nhập số lượng sản phẩm: ");
         int number = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhập giá sản phẩm: ");
