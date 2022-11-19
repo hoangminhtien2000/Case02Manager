@@ -1,21 +1,23 @@
 package model;
 
 public class Account {
-    private int id;
+    private  int id;
     private String username;
     private String password;
     private String phone;
     private String birthday;
+    private static int count=0;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String phone, String birthday) {
-        this.id = id;
+    public Account( String username, String password, String phone, String birthday) {
+        this.id=count;
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.birthday = birthday;
+        count++;
     }
 
     public int getId() {

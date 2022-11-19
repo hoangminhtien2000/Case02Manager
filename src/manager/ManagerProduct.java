@@ -1,5 +1,6 @@
 package manager;
 
+import model.Cart;
 import model.Product;
 import sort.SortProduct_FirstName_LastNumber;
 
@@ -7,13 +8,16 @@ import java.util.*;
 
 public class ManagerProduct {
     public static Scanner scanner = new Scanner(System.in);
-    public static List<Product> products = new ArrayList<>();
+    public static List<Product> products = new LinkedList<>();
+    static {
+        products.add(new Product("iphone",5,9000000));
+    }
    // public static Map<String,Product>products=new HashMap<>();
     static public void show() {
         if (products.isEmpty()){
             System.out.println("Không có sản phẩm nào");
         }else {
-            Collections.sort(products, new SortProduct_FirstName_LastNumber());
+            //Collections.sort(products, new SortProduct_FirstName_LastNumber());
             for (int i = 0; i < products.size(); i++) {
                 System.out.println(products.get(i).toString());
             }
@@ -24,6 +28,7 @@ public class ManagerProduct {
         Product product = createProduct();
         products.add(product);
         System.out.printf("Đã thêm sản phẩm '%s' vào danh sách", product.getName());
+        scanner.nextLine();
     }
 
     public static Product createProduct() {
@@ -93,6 +98,7 @@ public class ManagerProduct {
             System.out.println("Sản phẩm không tồn tại.");
             scanner.nextLine();
         } else {
+            System.out.println(products.get(index).toString());
             if (products.get(index).getNumber() > 0) {
                 do {
                     System.out.println("Nhập số lượng sản phẩm muốn mua");
@@ -104,6 +110,9 @@ public class ManagerProduct {
                 products.get(index).buy(number);
                 System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(), number);
                 System.out.println("\nTổng số tiền phải thanh toán: " + products.get(index).covertBill(products.get(index).bill(number)));
+
+                Cart cart=new Cart(products.get(index).getName(),number,products.get(index).bill(number));
+
                 scanner.nextLine();
 
             } else {
@@ -114,6 +123,7 @@ public class ManagerProduct {
     }
 
     public static void addNumberProduct() {
+        show();
         int number;
         int index;
         index = Index();

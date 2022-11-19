@@ -31,7 +31,7 @@ public class Main {
                     scanner.nextLine();
                     break;
                 case 2:
-                    ManagerAccount.addArr();
+                    ManagerAccount.addUser();
                     break;
                 case 3:
                     System.exit(0);

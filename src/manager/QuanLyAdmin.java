@@ -10,50 +10,49 @@ public class QuanLyAdmin {
         scanner.nextLine();
         while (true) {
             System.out.println("\n----------------Quản lý Account------------------");
-            System.out.println("1. Danh sách tài khoản:");
-            System.out.println("2. Sửa Password: ");
-            System.out.println("3. Xoá Account:");
-            System.out.println("4. Tìm Account:");
+            System.out.println("1. Tạo tài khoản:");
+            System.out.println("2. Danh sách tài khoản:");
+            System.out.println("3. Sửa Password: ");
+            System.out.println("4. Xoá Account:");
+            System.out.println("5. Tìm Account:");
             System.out.println("------------------Quản lý sản phẩm-----------------");
-            System.out.println("5. Thêm sản phẩm:");
-            System.out.println("6. Sửa thông tin sản phẩm:");
-            System.out.println("7. Xoá sản phẩm:");
-            System.out.println("8. Danh sách sản phẩm:");
-            System.out.println("9. Mua sản phẩm:");
+            System.out.println("6. Thêm sản phẩm:");
+            System.out.println("7. Sửa thông tin sản phẩm:");
+            System.out.println("8. Xoá sản phẩm:");
+            System.out.println("9. Danh sách sản phẩm:");
             System.out.println("10. Thêm số lượng sản phẩm:");
             System.out.println("11. Đăng xuất.");
             System.out.println("\nNhập lựa chọn:");
             int choice1 = Integer.parseInt(scanner.nextLine());
             switch (choice1) {
                 case 1:
-                    ManagerAccount.showlistAccount();
+                    ManagerAccount.addAdminUser();
                     break;
                 case 2:
-                    ManagerAccount.editInformationAccount();
+                    ManagerAccount.showlistAccount();
                     break;
                 case 3:
-                    ManagerAccount.deleteAccount();
+                    ManagerAccount.editInformationAccount();
                     break;
                 case 4:
-                    ManagerAccount.findAccount();
+                    ManagerAccount.deleteAccount();
                     break;
                 case 5:
-                    ManagerProduct.addArr();
+                    ManagerAccount.findAccount();
                     break;
                 case 6:
-                    ManagerProduct.edit();
+                    ManagerProduct.addArr();
                     break;
                 case 7:
-                    ManagerProduct.delete();
+                    ManagerProduct.edit();
                     break;
                 case 8:
+                    ManagerProduct.delete();
+                    break;
+                case 9:
                     System.out.println("\nDanh sách sản phẩm: ");
                     ManagerProduct.show();
                     scanner.nextLine();
-                    break;
-                case 9:
-                    ManagerProduct.show();
-                    ManagerProduct.totalBillProduct();
                     break;
                 case 10:
                     ManagerProduct.addNumberProduct();

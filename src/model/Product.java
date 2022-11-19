@@ -1,17 +1,28 @@
 package model;
 
 public class Product {
+    private  int id;
     private int number;
     private String name;
     private double price;
+    private static int count=0;
 
     public Product() {
     }
 
     public Product(String name, int number, double price) {
+        this.id=count;
         this.name = name;
         this.number = number;
         this.price = price;
+        count++;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -60,6 +71,6 @@ public class Product {
     }
     @Override
     public String toString() {
-        return "Product{" + "name='" + name + ", number=" + number + '\'' + ", price= " + covertPrice(getPrice()) + '}';
+        return "Product{" +"id='" + id + '\'' + "name='" + name + ", number=" + number + '\'' + ", price= " + covertPrice(getPrice()) + '}';
     }
 }

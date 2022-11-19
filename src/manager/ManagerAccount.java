@@ -3,16 +3,16 @@ package manager;
 import model.Account;
 import model.Admin;
 import model.User;
-import sort.SortAccount_id;
+import sort.SortAccount_ID;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ManagerAccount {
     static Scanner scanner = new Scanner(System.in);
-    static List<Account> accounts = new ArrayList<>();
+    static List<Account> accounts = new LinkedList<>();
+    static {
+        accounts.add(new Admin("tien","123","0987654321","24/03/2000"));
+    }
 
     public static List<Account> getAccounts() {
         return accounts;
@@ -24,7 +24,7 @@ public class ManagerAccount {
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
-            Collections.sort(accounts,new SortAccount_id());
+            //Collections.sort(accounts,new SortAccount_ID());
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
@@ -32,7 +32,12 @@ public class ManagerAccount {
         }
     }
 
-    public static void addArr() {
+    public static void addUser() {
+            Account users = createAccount(false);
+            accounts.add(users);
+    }
+
+    public static void addAdminUser(){
         System.out.println("\t1. Admin");
         System.out.println("\t2. User");
         System.out.println("Nhập loại tài khoản muốn tạo:");
@@ -48,8 +53,6 @@ public class ManagerAccount {
 
     public static Account createAccount(boolean isAdmin) {
         System.out.println("Nhập thông tin tài khoản: ");
-        System.out.println("Nhập Id:");
-        int id = Integer.parseInt(scanner.nextLine());
         int index;
         String username;
         do{
@@ -69,10 +72,10 @@ public class ManagerAccount {
         System.out.println("Nhập Birthday: ");
         String birthday = scanner.nextLine();
         if (isAdmin) {
-            Account admins = new Admin(id, username, password, phone, birthday);
+            Account admins = new Admin(username, password, phone, birthday);
             return admins;
         } else {
-            Account users = new User(id, username, password, phone, birthday);
+            Account users = new User(username, password, phone, birthday);
             return users;
         }
     }
