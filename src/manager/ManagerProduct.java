@@ -1,5 +1,6 @@
 package manager;
 
+import model.Cart;
 import model.Product;
 
 import java.util.*;
@@ -14,6 +15,10 @@ public class ManagerProduct {
 
     // public static Map<String,Product>products=new HashMap<>();
     ManagerCart managerCart = new ManagerCart();
+
+    public static List<Product> getProducts() {
+        return products;
+    }
 
     public void showProduct() {
         if (products.isEmpty()) {
@@ -145,4 +150,16 @@ public class ManagerProduct {
             }
         }
     }
+
+//    public Cart muaSanPham(){
+//        int number= Integer.parseInt(scanner.nextLine());;
+//        int index;
+//        index = IndexProduct();
+//        products.get(index).buy(number);
+//        System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(), number);
+//        System.out.println("\nTổng số tiền phải thanh toán: " + products.get(index).covertBill(products.get(index).bill(number)));
+//                Cart cart=new Cart(products.get(index).getName(),number,products.get(index).bill(number));
+//                return cart;
+//    }
+
 }

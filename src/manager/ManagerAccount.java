@@ -7,9 +7,9 @@ import model.User;
 import java.util.*;
 
 public class ManagerAccount {
-     Scanner scanner = new Scanner(System.in);
-     static List<Account> accounts = new LinkedList<>();
-     ManagerProduct managerProduct=new ManagerProduct();
+    Scanner scanner = new Scanner(System.in);
+    static List<Account> accounts = new LinkedList<>();
+    ManagerProduct managerProduct = new ManagerProduct();
 
     public ManagerProduct getmanagerProduct() {
         return managerProduct;
@@ -20,7 +20,7 @@ public class ManagerAccount {
     }
 
     static {
-        accounts.add(new Admin("tien","123","0987654321","24/03/2000"));
+        accounts.add(new Admin("tien", "123", "0987654321", "24/03/2000"));
     }
 
     public List<Account> getAccounts() {
@@ -42,14 +42,16 @@ public class ManagerAccount {
     }
 
     public void addUser() {
-            Account users = createAccount(false);
-            accounts.add(users);
+        Account users = createAccount(false);
+        accounts.add(users);
     }
 
-    public void addAdminUser(){
-        System.out.println("\t1. Admin");
-        System.out.println("\t2. User");
-        System.out.println("Nhập loại tài khoản muốn tạo:");
+    public void addAdminUser() {
+        String string = """                    
+                \t1. Admin:
+                \t2. User:
+                Nhập loại tài khoản muốn tạo:""";
+        System.out.println(string);
         int choice = Integer.parseInt(scanner.nextLine());
         if (choice == 1) {
             Account admins = createAccount(true);
@@ -64,16 +66,16 @@ public class ManagerAccount {
         System.out.println("Nhập thông tin tài khoản: ");
         int index;
         String username;
-        do{
-            index=-1;
+        do {
+            index = -1;
             System.out.println("Nhập Username:");
             username = scanner.nextLine();
             for (int i = 0; i < accounts.size(); i++) {
                 if (accounts.get(i).getUsername().equals(username))
-                    index=i;
+                    index = i;
             }
-            if (index !=-1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
-        }while (index !=-1);
+            if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
+        } while (index != -1);
         System.out.println("Nhập Password: ");
         String password = scanner.nextLine();
         System.out.println("Nhập Phone Number: ");
@@ -175,20 +177,22 @@ public class ManagerAccount {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
         scanner.nextLine();
         while (true) {
-            System.out.println("\n----------------Quản lý Account------------------");
-            System.out.println("1. Tạo tài khoản:");
-            System.out.println("2. Danh sách tài khoản:");
-            System.out.println("3. Sửa Password: ");
-            System.out.println("4. Xoá Account:");
-            System.out.println("5. Tìm Account:");
-            System.out.println("------------------Quản lý sản phẩm-----------------");
-            System.out.println("6. Thêm sản phẩm:");
-            System.out.println("7. Sửa thông tin sản phẩm:");
-            System.out.println("8. Xoá sản phẩm:");
-            System.out.println("9. Danh sách sản phẩm:");
-            System.out.println("10. Thêm số lượng sản phẩm:");
-            System.out.println("11. Đăng xuất.");
-            System.out.println("\nNhập lựa chọn:");
+            String string= """
+                    ----------------Quản lý Account------------------
+                    1. Tạo tài khoản:
+                    2. Danh sách tài khoản:
+                    3. Sửa Password:
+                    4. Xoá Account:
+                    5. Tìm Account:
+                    ------------------Quản lý sản phẩm-----------------
+                    6. Thêm sản phẩm:
+                    7. Sửa thông tin sản phẩm:
+                    8. Xoá sản phẩm:
+                    9. Danh sách sản phẩm:
+                    10. Thêm số lượng sản phẩm:
+                    11. Đăng xuất:
+                    Nhập lựa chọn:""";
+            System.out.println(string);
             int choice1 = Integer.parseInt(scanner.nextLine());
             switch (choice1) {
                 case 1:
@@ -235,10 +239,12 @@ public class ManagerAccount {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
         scanner.nextLine();
         while (true) {
-            System.out.println("1. Mua hàng:");
-            System.out.println("2. Giỏ hàng.");
-            System.out.println("3. Đăng xuất.");
-            System.out.println("\nNhập lựa chọn:");
+            String string= """
+                    1. Mua hàng:
+                    2. Giỏ hàng:
+                    3. Đăng xuất:
+                    Nhập lựa chọn:""";
+            System.out.println(string);
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:

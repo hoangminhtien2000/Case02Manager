@@ -10,12 +10,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ManagerAccount managerAccount=new ManagerAccount();
         ManagerProduct managerProduct=new ManagerProduct();
+
         while (true) {
-            System.out.println("Quản lý Account");
-            System.out.println("1. Đăng nhập:");
-            System.out.println("2. Đăng kí:");
-            System.out.println("3. Thoát.");
-            System.out.println("\nNhập lựa chọn:");
+            String string= """
+                    Quản lý Account:
+                    1. Đăng nhập:
+                    2. Đăng kí:
+                    3. Thoát.
+                    Nhập lựa chọn:""";
+            System.out.println(string);
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
