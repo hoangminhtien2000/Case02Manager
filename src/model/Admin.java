@@ -13,7 +13,7 @@ public class Admin extends Account {
     public String toString() {
         return "Admin{" +
                 "id='" + super.getId() + '\'' +
-                "username='" + super.getUsername() + '\'' +
+                ", username='" + super.getUsername() + '\'' +
                 ", password='" + super.getPassword() + '\'' +
                 ", phone='" + super.getPhone() + '\'' +
                 ", birthday=" + super.getBirthday() +

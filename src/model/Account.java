@@ -1,23 +1,24 @@
 package model;
 
+import java.util.Scanner;
+
 public class Account {
-    private  int id;
+    private int id;
     private String username;
     private String password;
     private String phone;
     private String birthday;
-    private static int count=0;
+    private static int countId = 0;
 
     public Account() {
     }
 
-    public Account( String username, String password, String phone, String birthday) {
-        this.id=count;
+    public Account(String username, String password, String phone, String birthday) {
+        this.id = countId++;
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.birthday = birthday;
-        count++;
     }
 
     public int getId() {

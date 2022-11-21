@@ -3,22 +3,31 @@ package manager;
 import model.Account;
 import model.Admin;
 import model.User;
-import sort.SortAccount_ID;
 
 import java.util.*;
 
 public class ManagerAccount {
-    static Scanner scanner = new Scanner(System.in);
-    static List<Account> accounts = new LinkedList<>();
+     Scanner scanner = new Scanner(System.in);
+     static List<Account> accounts = new LinkedList<>();
+     ManagerProduct managerProduct=new ManagerProduct();
+
+    public ManagerProduct getmanagerProduct() {
+        return managerProduct;
+    }
+
+    public void setmanagerProduct(ManagerProduct managerProduct) {
+        this.managerProduct = managerProduct;
+    }
+
     static {
         accounts.add(new Admin("tien","123","0987654321","24/03/2000"));
     }
 
-    public static List<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
-    public static void showlistAccount() {
+    public void showlistAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -32,12 +41,12 @@ public class ManagerAccount {
         }
     }
 
-    public static void addUser() {
+    public void addUser() {
             Account users = createAccount(false);
             accounts.add(users);
     }
 
-    public static void addAdminUser(){
+    public void addAdminUser(){
         System.out.println("\t1. Admin");
         System.out.println("\t2. User");
         System.out.println("Nhập loại tài khoản muốn tạo:");
@@ -51,7 +60,7 @@ public class ManagerAccount {
         }
     }
 
-    public static Account createAccount(boolean isAdmin) {
+    public Account createAccount(boolean isAdmin) {
         System.out.println("Nhập thông tin tài khoản: ");
         int index;
         String username;
@@ -80,10 +89,10 @@ public class ManagerAccount {
         }
     }
 
-    public static void editAccount() {
+    public void editAccount() {
         int index;
         System.out.println("Đăng nhập để sửa: ");
-        index = Index();
+        index = IndexAccount();
         if (index == -1) {
             System.out.println("Tài khoản không tồn tại.");
             scanner.nextLine();
@@ -96,7 +105,7 @@ public class ManagerAccount {
         }
     }
 
-    public static int Index() {
+    public int IndexAccount() {
         System.out.println("Nhập Username:");
         String username = scanner.nextLine();
         System.out.println("Nhập Password:");
@@ -108,10 +117,10 @@ public class ManagerAccount {
         return -1;
     }
 
-    public static String Account1() {
+    public String Account1() {
         int index;
         System.out.println("Nhập thông tin tài khoản muốn tìm: ");
-        index = Index();
+        index = IndexAccount();
         if (index == -1) {
             return "Tài khoản không tồn tại";
         } else {
@@ -119,10 +128,10 @@ public class ManagerAccount {
         }
     }
 
-    public static void delete() {
+    public void delete() {
         int index;
         System.out.println("Nhập thông tin tài khoản muốn xoá: ");
-        index = Index();
+        index = IndexAccount();
         if (index < 0) {
             System.out.println("Username không đúng.");
             scanner.nextLine();
@@ -134,7 +143,7 @@ public class ManagerAccount {
 
     }
 
-    public static void editInformationAccount() {
+    public void editInformationAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -143,7 +152,7 @@ public class ManagerAccount {
         }
     }
 
-    public static void deleteAccount() {
+    public void deleteAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -152,13 +161,98 @@ public class ManagerAccount {
         }
     }
 
-    public static void findAccount() {
+    public void findAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
         } else {
             System.out.println(Account1());
             scanner.nextLine();
+        }
+    }
+
+    public void managerAdmin() {
+        System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
+        scanner.nextLine();
+        while (true) {
+            System.out.println("\n----------------Quản lý Account------------------");
+            System.out.println("1. Tạo tài khoản:");
+            System.out.println("2. Danh sách tài khoản:");
+            System.out.println("3. Sửa Password: ");
+            System.out.println("4. Xoá Account:");
+            System.out.println("5. Tìm Account:");
+            System.out.println("------------------Quản lý sản phẩm-----------------");
+            System.out.println("6. Thêm sản phẩm:");
+            System.out.println("7. Sửa thông tin sản phẩm:");
+            System.out.println("8. Xoá sản phẩm:");
+            System.out.println("9. Danh sách sản phẩm:");
+            System.out.println("10. Thêm số lượng sản phẩm:");
+            System.out.println("11. Đăng xuất.");
+            System.out.println("\nNhập lựa chọn:");
+            int choice1 = Integer.parseInt(scanner.nextLine());
+            switch (choice1) {
+                case 1:
+                    addAdminUser();
+                    break;
+                case 2:
+                    showlistAccount();
+                    break;
+                case 3:
+                    editInformationAccount();
+                    break;
+                case 4:
+                    deleteAccount();
+                    break;
+                case 5:
+                    findAccount();
+                    break;
+                case 6:
+                    managerProduct.addArr();
+                    break;
+                case 7:
+                    managerProduct.edit();
+                    break;
+                case 8:
+                    managerProduct.delete();
+                    break;
+                case 9:
+                    System.out.println("\nDanh sách sản phẩm: ");
+                    managerProduct.showProduct();
+                    scanner.nextLine();
+                    break;
+                case 10:
+                    managerProduct.addNumberProduct();
+                    break;
+                case 11:
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void managerUser() {
+        System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
+        scanner.nextLine();
+        while (true) {
+            System.out.println("1. Mua hàng:");
+            System.out.println("2. Giỏ hàng.");
+            System.out.println("3. Đăng xuất.");
+            System.out.println("\nNhập lựa chọn:");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    managerProduct.showProduct();
+                    managerProduct.totalBillProduct();
+                    break;
+                case 2:
+                    managerProduct.managerCart.showCart();
+                    break;
+                case 3:
+                    return;
+                default:
+                    break;
+            }
         }
     }
 }

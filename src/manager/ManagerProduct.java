@@ -1,22 +1,24 @@
 package manager;
 
-import model.Cart;
 import model.Product;
-import sort.SortProduct_FirstName_LastNumber;
 
 import java.util.*;
 
 public class ManagerProduct {
-    public static Scanner scanner = new Scanner(System.in);
-    public static List<Product> products = new LinkedList<>();
+    Scanner scanner = new Scanner(System.in);
+    static List<Product> products = new LinkedList<>();
+
     static {
-        products.add(new Product("iphone",5,9000000));
+        products.add(new Product("iphone", 5, 9000000));
     }
-   // public static Map<String,Product>products=new HashMap<>();
-    static public void show() {
-        if (products.isEmpty()){
+
+    // public static Map<String,Product>products=new HashMap<>();
+    ManagerCart managerCart = new ManagerCart();
+
+    public void showProduct() {
+        if (products.isEmpty()) {
             System.out.println("Không có sản phẩm nào");
-        }else {
+        } else {
             //Collections.sort(products, new SortProduct_FirstName_LastNumber());
             for (int i = 0; i < products.size(); i++) {
                 System.out.println(products.get(i).toString());
@@ -24,26 +26,26 @@ public class ManagerProduct {
         }
     }
 
-    public static void addArr() {
+    public void addArr() {
         Product product = createProduct();
         products.add(product);
         System.out.printf("Đã thêm sản phẩm '%s' vào danh sách", product.getName());
         scanner.nextLine();
     }
 
-    public static Product createProduct() {
+    public Product createProduct() {
         int index;
         String name;
-        do{
-            index=-1;
+        do {
+            index = -1;
             System.out.println("Nhập tên sản phẩm:");
-             name = scanner.nextLine();
+            name = scanner.nextLine();
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getName().equals(name))
-                    index=i;
+                    index = i;
             }
-            if (index !=-1) System.out.println("\nSản phẩm đã tồn tại, mời nhập tên khác.");
-        }while (index !=-1);
+            if (index != -1) System.out.println("\nSản phẩm đã tồn tại, mời nhập tên khác.");
+        } while (index != -1);
         System.out.println("Nhập số lượng sản phẩm: ");
         int number = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhập giá sản phẩm: ");
@@ -52,7 +54,7 @@ public class ManagerProduct {
         return product;
     }
 
-    public static int Index() {
+    public int IndexProduct() {
         System.out.println("Nhập tên sản phẩm:");
         String name = scanner.nextLine();
         for (int i = 0; i < products.size(); i++) {
@@ -62,10 +64,10 @@ public class ManagerProduct {
         return -1;
     }
 
-    public static void delete() {
+    public void delete() {
         int index;
         System.out.println("Nhập tên sản phẩm muốn xoá: ");
-        index = Index();
+        index = IndexProduct();
         if (index < 0) {
             System.out.println("Sản phẩm không tồn tại.");
             scanner.nextLine();
@@ -76,9 +78,9 @@ public class ManagerProduct {
         }
     }
 
-    public static void edit() {
+    public void edit() {
         int index;
-        index = Index();
+        index = IndexProduct();
         if (index == -1) {
             System.out.println("Sản phẩm không tồn tại.");
             scanner.nextLine();
@@ -90,15 +92,37 @@ public class ManagerProduct {
         }
     }
 
-    public static void totalBillProduct() {
+    public void addNumberProduct() {
+        showProduct();
         int number;
         int index;
-        index = Index();
+        index = IndexProduct();
         if (index == -1) {
             System.out.println("Sản phẩm không tồn tại.");
             scanner.nextLine();
         } else {
             System.out.println(products.get(index).toString());
+            do {
+                System.out.println("Nhập số lượng sản phẩm muốn thêm");
+                number = Integer.parseInt(scanner.nextLine());
+                if (number <= 0) {
+                    System.out.println("\nMời nhập lại số lượng sản phẩm");
+                }
+            } while (number <= 0);
+            products.get(index).addNumber(number);
+            System.out.printf("Đã thêm '%s' với số lượng %d.", products.get(index).getName(), number);
+            scanner.nextLine();
+        }
+    }
+
+    public void totalBillProduct() {
+        int number;
+        int index;
+        index = IndexProduct();
+        if (index == -1) {
+            System.out.println("Sản phẩm không tồn tại.");
+            scanner.nextLine();
+        } else {
             if (products.get(index).getNumber() > 0) {
                 do {
                     System.out.println("Nhập số lượng sản phẩm muốn mua");
@@ -111,37 +135,14 @@ public class ManagerProduct {
                 System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(), number);
                 System.out.println("\nTổng số tiền phải thanh toán: " + products.get(index).covertBill(products.get(index).bill(number)));
 
-                Cart cart=new Cart(products.get(index).getName(),number,products.get(index).bill(number));
+//                Cart cart=new Cart(products.get(index).getName(),number,products.get(index).bill(number));
+//                managerCart.addCart(cart);
 
                 scanner.nextLine();
-
             } else {
                 System.out.println("Sản phẩm hiện tại đã hết hàng.");
                 scanner.nextLine();
             }
-        }
-    }
-
-    public static void addNumberProduct() {
-        show();
-        int number;
-        int index;
-        index = Index();
-        if (index == -1) {
-            System.out.println("Sản phẩm không tồn tại.");
-            scanner.nextLine();
-        } else {
-            System.out.println(products.get(index).toString());
-            do {
-                System.out.println("Nhập số lượng sản phẩm muốn thêm");
-                number = Integer.parseInt(scanner.nextLine());
-                if ( number <= 0) {
-                    System.out.println("\nMời nhập lại số lượng sản phẩm");
-                }
-            } while ( number <= 0);
-            products.get(index).addNumber(number);
-            System.out.printf("Đã thêm '%s' với số lượng %d.", products.get(index).getName(), number);
-            scanner.nextLine();
         }
     }
 }
