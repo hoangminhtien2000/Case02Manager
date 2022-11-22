@@ -10,10 +10,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ManagerAccount managerAccount=new ManagerAccount();
         ManagerProduct managerProduct=new ManagerProduct();
-
         while (true) {
             String string= """
-                    Quản lý Account:
+                    \nLOGIN/REGISTER:
                     1. Đăng nhập:
                     2. Đăng kí:
                     3. Thoát.
@@ -25,10 +24,10 @@ public class Main {
                     int index = managerAccount.IndexAccount();
                     if (index != -1) {
                         if (managerAccount.getAccounts().get(index) instanceof Admin admin){
-                            managerAccount.managerAdmin();
+                            managerAccount.managerAdmin(index);
                         }
                         if (managerAccount.getAccounts().get(index) instanceof User user){
-                            managerAccount.managerUser();
+                            managerAccount.managerUser(index);
                         }
                     } else
                        System.out.println("Đăng nhập thất bại.");

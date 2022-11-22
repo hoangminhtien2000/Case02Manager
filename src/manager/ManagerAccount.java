@@ -21,6 +21,7 @@ public class ManagerAccount {
 
     static {
         accounts.add(new Admin("tien", "123", "0987654321", "24/03/2000"));
+        accounts.add(new User("long", "123", "1234567890", "01/01/2002"));
     }
 
     public List<Account> getAccounts() {
@@ -33,7 +34,7 @@ public class ManagerAccount {
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
-            //Collections.sort(accounts,new SortAccount_ID());
+            System.out.printf("%-15s%-5s%-15s%-15s%-13s%-13s\n","AccountType","ID","UserName","Password","PhoneNumber","Birthday");
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
@@ -173,7 +174,7 @@ public class ManagerAccount {
         }
     }
 
-    public void managerAdmin() {
+    public void managerAdmin(int index) {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
         scanner.nextLine();
         while (true) {
@@ -235,7 +236,8 @@ public class ManagerAccount {
         }
     }
 
-    public void managerUser() {
+    public void managerUser(int index) {
+        User curUser = (User) accounts.get(index);
         System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
         scanner.nextLine();
         while (true) {

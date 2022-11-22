@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class User extends Account {
+    private int AccountId;
     Scanner scanner = new Scanner(System.in);
     private   List<Cart> carts = new ArrayList<>();
     public User() {
@@ -30,12 +31,7 @@ public class User extends Account {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + super.getId() + '\'' +
-                ", username='" + super.getUsername() + '\'' +
-                ", password='" + super.getPassword() + '\'' +
-                ", phone='" + super.getPhone() + '\'' +
-                ", birthday=" + super.getBirthday() +
-                carts + '}';
+        String toString=String.format("%-15s%-5d%-15s%-15s%-13s%-13s","User",super.getId(),super.getUsername(),super.getPassword(),super.getPhone(),super.getBirthday());
+        return toString;
     }
 }

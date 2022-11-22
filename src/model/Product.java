@@ -11,11 +11,10 @@ public class Product {
     }
 
     public Product(String name, int number, double price) {
-        this.id = count;
+        this.id = count++;
         this.name = name;
         this.number = number;
         this.price = price;
-        count++;
     }
 
     public int getId() {
@@ -74,11 +73,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", price= " + covertPrice(getPrice()) +
-                '}';
+        String toString=String.format("%-5d%-15s%-10d%s",id,name,number,covertPrice(getPrice()));
+        return toString;
     }
 }

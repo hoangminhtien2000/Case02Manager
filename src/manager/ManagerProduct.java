@@ -24,9 +24,9 @@ public class ManagerProduct {
         if (products.isEmpty()) {
             System.out.println("Không có sản phẩm nào");
         } else {
-            //Collections.sort(products, new SortProduct_FirstName_LastNumber());
-            for (int i = 0; i < products.size(); i++) {
-                System.out.println(products.get(i).toString());
+            System.out.printf("%-5s%-15s%-10s%s\n","STT","Tên sản phẩm","Số lượng","Giá");
+            for (Product product : products) {
+                System.out.println(product.toString());
             }
         }
     }
