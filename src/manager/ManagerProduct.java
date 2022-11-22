@@ -51,10 +51,19 @@ public class ManagerProduct {
             }
             if (index != -1) System.out.println("\nSản phẩm đã tồn tại, mời nhập tên khác.");
         } while (index != -1);
-        System.out.println("Nhập số lượng sản phẩm: ");
-        int number = Integer.parseInt(scanner.nextLine());
-        System.out.println("Nhập giá sản phẩm: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        int number;
+        double price;
+        do {
+            try {
+                System.out.println("Nhập số lượng sản phẩm: ");
+                number = Integer.parseInt(scanner.nextLine());
+                System.out.println("Nhập giá sản phẩm: ");
+                price = Double.parseDouble(scanner.nextLine());
+                break;
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Phải nhập số!");
+            }
+        }while (true);
         Product product = new Product(name, number, price);
         return product;
     }
@@ -109,7 +118,15 @@ public class ManagerProduct {
             System.out.println(products.get(index).toString());
             do {
                 System.out.println("Nhập số lượng sản phẩm muốn thêm");
-                number = Integer.parseInt(scanner.nextLine());
+                do {
+                    try {
+                        System.out.println("Mời nhập lựa chọn: ");
+                        number = Integer.parseInt(scanner.nextLine());
+                        break;
+                    } catch (InputMismatchException | NumberFormatException e) {
+                        System.out.println("Phải nhập số!");
+                    }
+                }while (true);
                 if (number <= 0) {
                     System.out.println("\nMời nhập lại số lượng sản phẩm");
                 }
@@ -131,7 +148,15 @@ public class ManagerProduct {
             if (products.get(index).getNumber() > 0) {
                 do {
                     System.out.println("Nhập số lượng sản phẩm muốn mua");
-                    number = Integer.parseInt(scanner.nextLine());
+                    do {
+                        try {
+                            System.out.println("Mời nhập lựa chọn: ");
+                            number = Integer.parseInt(scanner.nextLine());
+                            break;
+                        } catch (InputMismatchException | NumberFormatException e) {
+                            System.out.println("Phải nhập số!");
+                        }
+                    }while (true);
                     if (number > products.get(index).getNumber() || number <= 0) {
                         System.out.println("\nMời nhập lại số lượng sản phẩm");
                     }

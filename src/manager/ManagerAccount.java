@@ -192,10 +192,20 @@ public class ManagerAccount {
                     9. Danh sách sản phẩm:
                     10. Thêm số lượng sản phẩm:
                     11. Đăng xuất:
-                    Nhập lựa chọn:""";
+                    """;
             System.out.println(string);
-            int choice1 = Integer.parseInt(scanner.nextLine());
-            switch (choice1) {
+            int choice;
+            do {
+                try {
+                    System.out.println("Mời nhập lựa chọn: ");
+                    choice = Integer.parseInt(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số!");
+                }
+            }while (true);
+
+            switch (choice) {
                 case 1:
                     addAdminUser();
                     break;
@@ -245,9 +255,18 @@ public class ManagerAccount {
                     1. Mua hàng:
                     2. Giỏ hàng:
                     3. Đăng xuất:
-                    Nhập lựa chọn:""";
+                    """;
             System.out.println(string);
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice;
+            do {
+                try {
+                    System.out.println("Mời nhập lựa chọn: ");
+                    choice = Integer.parseInt(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số!");
+                }
+            }while (true);
             switch (choice) {
                 case 1:
                     managerProduct.showProduct();
