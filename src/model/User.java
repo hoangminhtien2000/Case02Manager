@@ -11,8 +11,8 @@ public class User extends Account {
     public User() {
     }
 
-    public User(String username, String password, String phone, String birthday) {
-        super( username, password, phone, birthday);
+    public User(String username, String password,String name, int age,String gender) {
+        super( username, password,name,age,gender);
     }
 
     public List<Cart> getCarts() {
@@ -31,7 +31,7 @@ public class User extends Account {
 
     @Override
     public String toString() {
-        String toString=String.format("%-15s%-5d%-15s%-15s%-13s%-13s","User",super.getId(),super.getUsername(),super.getPassword(),super.getPhone(),super.getBirthday());
+        String toString=String.format("%-15s%-5d%-15s%-15s%-20s%-5d%-8s","User",super.getId(),super.getUsername(),super.getPassword(),super.getName(),super.getAge(),super.getGender());
         return toString;
     }
 }

@@ -6,19 +6,22 @@ public class Account {
     private int id;
     private String username;
     private String password;
-    private String phone;
-    private String birthday;
+    private String name;
+    private int age;
+    private String gender;
     private static int countId = 0;
 
     public Account() {
     }
 
-    public Account(String username, String password, String phone, String birthday) {
+    public Account(String username, String password,String name, int age,String gender) {
         this.id = countId++;
         this.username = username;
         this.password = password;
-        this.phone = phone;
-        this.birthday = birthday;
+        this.name=name;
+        this.age = age;
+        this.gender=gender;
+
     }
 
     public int getId() {
@@ -45,20 +48,29 @@ public class Account {
         this.password = password;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getName() {
+        return name;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public int getAge() {
+        return age;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public String getGender() {
+        return gender;
     }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
 
 }

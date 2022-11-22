@@ -20,8 +20,8 @@ public class ManagerAccount {
     }
 
     static {
-        accounts.add(new Admin("tien", "123", "0987654321", "24/03/2000"));
-        accounts.add(new User("long", "123", "1234567890", "01/01/2002"));
+        accounts.add(new Admin("tien", "123","Hoàng Minh Tiến",22,"Nam"));
+        accounts.add(new User("long", "123","Hoàng Nhật Long", 20, "Nam"));
     }
 
     public List<Account> getAccounts() {
@@ -34,7 +34,7 @@ public class ManagerAccount {
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
-            System.out.printf("%-15s%-5s%-15s%-15s%-13s%-13s\n","AccountType","ID","UserName","Password","PhoneNumber","Birthday");
+            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n","AccountType","ID","UserName","Password","Name","Age","Gender");
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
@@ -79,15 +79,28 @@ public class ManagerAccount {
         } while (index != -1);
         System.out.println("Nhập Password: ");
         String password = scanner.nextLine();
-        System.out.println("Nhập Phone Number: ");
-        String phone = scanner.nextLine();
-        System.out.println("Nhập Birthday: ");
-        String birthday = scanner.nextLine();
+        System.out.println("Nhập Name: ");
+        String name = scanner.nextLine();
+        int age;
+        do {
+            do {
+                try {
+                    System.out.println("Nhập Age: ");
+                    age = Integer.parseInt(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số");
+                }
+            }while (true);
+            if (age<10||age>130) System.out.println("Phải nhập số lớn hơn 10 và nhỏ hơn 130!");
+        }while (age<10||age>130);
+        System.out.println("Nhập Gender");
+        String gender=scanner.nextLine();
         if (isAdmin) {
-            Account admins = new Admin(username, password, phone, birthday);
+            Account admins = new Admin(username, password,name,age,gender);
             return admins;
         } else {
-            Account users = new User(username, password, phone, birthday);
+            Account users = new User(username, password,name,age,gender);
             return users;
         }
     }
