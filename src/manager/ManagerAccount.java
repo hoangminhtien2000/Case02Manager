@@ -20,8 +20,8 @@ public class ManagerAccount {
     }
 
     static {
-        accounts.add(new Admin("tien", "123","Hoàng Minh Tiến",22,"Nam"));
-        accounts.add(new User("long", "123","Hoàng Nhật Long", 20, "Nam"));
+        accounts.add(new Admin("tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
+        accounts.add(new User("long", "123", "Hoàng Nhật Long", 20, "Nam"));
     }
 
     public List<Account> getAccounts() {
@@ -34,7 +34,7 @@ public class ManagerAccount {
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
-            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n","AccountType","ID","UserName","Password","Name","Age","Gender");
+            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
@@ -91,19 +91,56 @@ public class ManagerAccount {
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Phải nhập số");
                 }
-            }while (true);
-            if (age<10||age>130) System.out.println("Phải nhập số lớn hơn 10 và nhỏ hơn 130!");
-        }while (age<10||age>130);
-        System.out.println("Nhập Gender");
-        String gender=scanner.nextLine();
+            } while (true);
+            if (age < 10 || age > 130) System.out.println("Phải nhập số lớn hơn 10 và nhỏ hơn 130!");
+        } while (age < 10 || age > 130);
+        String gender;
+        gender=scanGender();
         if (isAdmin) {
-            Account admins = new Admin(username, password,name,age,gender);
+            Account admins = new Admin(username, password, name, age, gender);
             return admins;
         } else {
-            Account users = new User(username, password,name,age,gender);
+            Account users = new User(username, password, name, age, gender);
             return users;
         }
     }
+
+    public String scanGender() {
+        String gender;
+            int choise;
+            String string = """
+                    Nhập Gender:
+                    \t1. Nam.
+                    \t2. Nữ.
+                    """;
+            System.out.println(string);
+            do {
+                try {
+                    do {
+
+                        System.out.println("Nhập lựa chọn: ");
+                        choise = Integer.parseInt(scanner.nextLine());
+                           if (choise!=1&&choise!=2) System.out.println("Phải nhập 1 hoặc 2");
+                    }while (choise!=1&&choise!=2);
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số");
+                }
+            } while (true);
+            switch (choise) {
+                case 1:
+                    gender = "Nam";
+                    break;
+                case 2:
+                    gender = "Nữ";
+                    break;
+                default:
+                    gender="";
+                    break;
+            }
+        return gender;
+    }
+
 
     public void editAccount() {
         int index;
@@ -191,7 +228,7 @@ public class ManagerAccount {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
         scanner.nextLine();
         while (true) {
-            String string= """
+            String string = """
                     ----------------Quản lý Account------------------
                     1. Tạo tài khoản:
                     2. Danh sách tài khoản:
@@ -216,7 +253,7 @@ public class ManagerAccount {
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Phải nhập số!");
                 }
-            }while (true);
+            } while (true);
 
             switch (choice) {
                 case 1:
@@ -264,7 +301,7 @@ public class ManagerAccount {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
         scanner.nextLine();
         while (true) {
-            String string= """
+            String string = """
                     1. Mua hàng:
                     2. Giỏ hàng:
                     3. Đăng xuất:
@@ -279,7 +316,7 @@ public class ManagerAccount {
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Phải nhập số!");
                 }
-            }while (true);
+            } while (true);
             switch (choice) {
                 case 1:
                     managerProduct.showProduct();
