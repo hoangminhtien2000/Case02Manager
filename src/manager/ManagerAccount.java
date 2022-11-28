@@ -4,31 +4,30 @@ import model.Account;
 import model.Admin;
 import model.User;
 
+import java.io.*;
 import java.util.*;
 
 public class ManagerAccount {
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
     static List<Account> accounts = new LinkedList<>();
-    ManagerProduct managerProduct = new ManagerProduct();
+     static {
+        boolean checkisAdmin = false;
+        for (Account account : accounts) {
+            if (account.getUsername().equals("tien") && account.getPassword().equals("123")) {
+                checkisAdmin = true;
 
-    public ManagerProduct getmanagerProduct() {
-        return managerProduct;
+            }
+        }
+        if (checkisAdmin ==false) {
+            accounts.add(new Admin("tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
+        }
     }
 
-    public void setmanagerProduct(ManagerProduct managerProduct) {
-        this.managerProduct = managerProduct;
-    }
-
-    static {
-        accounts.add(new Admin("tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
-        accounts.add(new User("long", "123", "Hoàng Nhật Long", 20, "Nam"));
-    }
-
-    public List<Account> getAccounts() {
+    public static List<Account> getAccounts() {
         return accounts;
     }
 
-    public void showlistAccount() {
+    public static void showlistAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -42,12 +41,12 @@ public class ManagerAccount {
         }
     }
 
-    public void addUser() {
+    public static void addUser() {
         Account users = createAccount(false);
         accounts.add(users);
     }
 
-    public void addAdminUser() {
+    public static void addAdminUser() {
         String string = """                    
                 \t1. Admin:
                 \t2. User:
@@ -63,7 +62,7 @@ public class ManagerAccount {
         }
     }
 
-    public Account createAccount(boolean isAdmin) {
+    public static Account createAccount(boolean isAdmin) {
         System.out.println("Nhập thông tin tài khoản: ");
         int index;
         String username;
@@ -105,7 +104,7 @@ public class ManagerAccount {
         }
     }
 
-    public String scanGender() {
+    public static String scanGender() {
         String gender;
             int choise;
             String string = """
@@ -142,9 +141,9 @@ public class ManagerAccount {
     }
 
 
-    public void editAccount() {
+    public static void editAccount() {
         int index;
-        System.out.println("Đăng nhập để sửa: ");
+        System.out.println("Nhập thông tin tài khoản muốn sửa: ");
         index = IndexAccount();
         if (index == -1) {
             System.out.println("Tài khoản không tồn tại.");
@@ -158,7 +157,7 @@ public class ManagerAccount {
         }
     }
 
-    public int IndexAccount() {
+    public static int IndexAccount() {
         System.out.println("Nhập Username:");
         String username = scanner.nextLine();
         System.out.println("Nhập Password:");
@@ -170,7 +169,7 @@ public class ManagerAccount {
         return -1;
     }
 
-    public String Account1() {
+    public static String Account1() {
         int index;
         System.out.println("Nhập thông tin tài khoản muốn tìm: ");
         index = IndexAccount();
@@ -181,22 +180,27 @@ public class ManagerAccount {
         }
     }
 
-    public void delete() {
+    public static void delete() {
         int index;
         System.out.println("Nhập thông tin tài khoản muốn xoá: ");
         index = IndexAccount();
         if (index < 0) {
-            System.out.println("Username không đúng.");
+            System.out.println("Tài khoản không tồn tại.");
             scanner.nextLine();
         } else {
-            System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
-            accounts.remove(index);
-            scanner.nextLine();
+            if (accounts.get(index).getUsername().equals("tien")&&accounts.get(index).getPassword().equals("123")){
+                System.out.println("Không cho phép xoá tài kkoản này!");
+                scanner.nextLine();
+            }
+            else {
+                System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+                accounts.remove(index);
+                scanner.nextLine();
+            }
         }
-
     }
 
-    public void editInformationAccount() {
+    public static void editInformationAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -205,7 +209,7 @@ public class ManagerAccount {
         }
     }
 
-    public void deleteAccount() {
+    public static void deleteAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -214,7 +218,7 @@ public class ManagerAccount {
         }
     }
 
-    public void findAccount() {
+    public static void findAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             scanner.nextLine();
@@ -224,7 +228,41 @@ public class ManagerAccount {
         }
     }
 
-    public void managerAdmin(int index) {
+    public static void writeObjectAccount() {
+        try (FileOutputStream fos = new FileOutputStream("dataObjectListAccount.txt");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+//            for (Account account : accounts) {
+//                oos.writeObject(account);
+//            }
+//            oos.writeObject(null);
+            oos.writeObject(accounts);
+        } catch (Exception e) {
+            System.out.println("File không tồn tại " +
+                    "hoặc có lỗi trong lúc ghi.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void readObjectAccount() {
+        try (FileInputStream fis = new FileInputStream("dataObjectListAccount.txt");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+//            accounts = new ArrayList<>();
+//             while (true){
+//                Account account = (Account) ois.readObject();
+//                if (account == null) break;
+//                accounts.add(account);
+//            }
+            List<Account> account = (List<Account>) ois.readObject();
+            accounts = (LinkedList<Account>) account;
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            System.out.println("File không tồn tại " +
+                    "hoặc có lỗi trong lúc đọc.");
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void managerAdmin(int index) {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
         scanner.nextLine();
         while (true) {
@@ -272,21 +310,21 @@ public class ManagerAccount {
                     findAccount();
                     break;
                 case 6:
-                    managerProduct.addArr();
+                    ManagerProduct.addArr();
                     break;
                 case 7:
-                    managerProduct.edit();
+                    ManagerProduct.edit();
                     break;
                 case 8:
-                    managerProduct.delete();
+                    ManagerProduct.delete();
                     break;
                 case 9:
                     System.out.println("\nDanh sách sản phẩm: ");
-                    managerProduct.showProduct();
+                    ManagerProduct.showProduct();
                     scanner.nextLine();
                     break;
                 case 10:
-                    managerProduct.addNumberProduct();
+                    ManagerProduct.addNumberProduct();
                     break;
                 case 11:
                     return;
@@ -296,7 +334,7 @@ public class ManagerAccount {
         }
     }
 
-    public void managerUser(int index) {
+    public static void managerUser(int index) {
         User curUser = (User) accounts.get(index);
         System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
         scanner.nextLine();
@@ -319,11 +357,11 @@ public class ManagerAccount {
             } while (true);
             switch (choice) {
                 case 1:
-                    managerProduct.showProduct();
-                    managerProduct.totalBillProduct();
+                    ManagerProduct.showProduct();
+                    ManagerProduct.totalBillProduct();
                     break;
                 case 2:
-                    managerProduct.managerCart.showCart();
+                    ManagerProduct.managerCart.showCart();
                     break;
                 case 3:
                     return;

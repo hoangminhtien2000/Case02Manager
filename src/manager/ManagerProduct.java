@@ -6,7 +6,7 @@ import model.Product;
 import java.util.*;
 
 public class ManagerProduct {
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
     static List<Product> products = new LinkedList<>();
 
     static {
@@ -14,13 +14,13 @@ public class ManagerProduct {
     }
 
     // public static Map<String,Product>products=new HashMap<>();
-    ManagerCart managerCart = new ManagerCart();
+    static ManagerCart managerCart = new ManagerCart();
 
     public static List<Product> getProducts() {
         return products;
     }
 
-    public void showProduct() {
+    public static void showProduct() {
         if (products.isEmpty()) {
             System.out.println("Không có sản phẩm nào");
         } else {
@@ -31,14 +31,14 @@ public class ManagerProduct {
         }
     }
 
-    public void addArr() {
+    public static void addArr() {
         Product product = createProduct();
         products.add(product);
         System.out.printf("Đã thêm sản phẩm '%s' vào danh sách", product.getName());
         scanner.nextLine();
     }
 
-    public Product createProduct() {
+    public static Product createProduct() {
         int index;
         String name;
         do {
@@ -68,7 +68,7 @@ public class ManagerProduct {
         return product;
     }
 
-    public int IndexProduct() {
+    public static int IndexProduct() {
         System.out.println("Nhập tên sản phẩm:");
         String name = scanner.nextLine();
         for (int i = 0; i < products.size(); i++) {
@@ -78,7 +78,7 @@ public class ManagerProduct {
         return -1;
     }
 
-    public void delete() {
+    public static void delete() {
         int index;
         System.out.println("Nhập tên sản phẩm muốn xoá: ");
         index = IndexProduct();
@@ -92,7 +92,7 @@ public class ManagerProduct {
         }
     }
 
-    public void edit() {
+    public static void edit() {
         int index;
         index = IndexProduct();
         if (index == -1) {
@@ -106,7 +106,7 @@ public class ManagerProduct {
         }
     }
 
-    public void addNumberProduct() {
+    public static void addNumberProduct() {
         showProduct();
         int number;
         int index;
@@ -137,7 +137,7 @@ public class ManagerProduct {
         }
     }
 
-    public void totalBillProduct() {
+    public static void totalBillProduct() {
         int number;
         int index;
         index = IndexProduct();

@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class User extends Account {
     private int AccountId;
-    Scanner scanner = new Scanner(System.in);
     private   List<Cart> carts = new ArrayList<>();
     public User() {
     }
@@ -24,6 +23,7 @@ public class User extends Account {
     }
 
     public void buyProduct(Cart cart){
+        Scanner scanner = new Scanner(System.in);
         int number = Integer.parseInt(scanner.nextLine());
         cart.setNumber(number);
         this.getCarts().add(cart);
