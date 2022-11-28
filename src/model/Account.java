@@ -14,8 +14,8 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String username, String password,String name, int age,String gender) {
-        this.id = countId++;
+    public Account(int id,String username, String password,String name, int age,String gender) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name=name;

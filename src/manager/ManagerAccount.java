@@ -19,7 +19,7 @@ public class ManagerAccount {
             }
         }
         if (checkisAdmin ==false) {
-            accounts.add(new Admin("tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
+            accounts.add(new Admin(0,"tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
         }
     }
 
@@ -30,6 +30,7 @@ public class ManagerAccount {
     public static void showlistAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             System.out.println("\nDanh sách Account: ");
@@ -37,6 +38,7 @@ public class ManagerAccount {
             for (int i = 0; i < accounts.size(); i++) {
                 System.out.println(accounts.get(i).toString());
             }
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }
     }
@@ -50,9 +52,18 @@ public class ManagerAccount {
         String string = """                    
                 \t1. Admin:
                 \t2. User:
-                Nhập loại tài khoản muốn tạo:""";
+                """;
         System.out.println(string);
-        int choice = Integer.parseInt(scanner.nextLine());
+        int choice;
+        do {
+            try {
+                System.out.println("Nhập loại tài khoản muốn tạo(Nhấn số khác 1 hoặc 2 để huỷ lệnh tạo tài khoản):");
+                choice = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Phải nhập số");
+            }
+        } while (true);
         if (choice == 1) {
             Account admins = createAccount(true);
             accounts.add(admins);
@@ -64,6 +75,7 @@ public class ManagerAccount {
 
     public static Account createAccount(boolean isAdmin) {
         System.out.println("Nhập thông tin tài khoản: ");
+        int id=accounts.get(accounts.size()-1).getId()+1;
         int index;
         String username;
         do {
@@ -96,10 +108,10 @@ public class ManagerAccount {
         String gender;
         gender=scanGender();
         if (isAdmin) {
-            Account admins = new Admin(username, password, name, age, gender);
+            Account admins = new Admin(id,username, password, name, age, gender);
             return admins;
         } else {
-            Account users = new User(username, password, name, age, gender);
+            Account users = new User(id,username, password, name, age, gender);
             return users;
         }
     }
@@ -147,12 +159,14 @@ public class ManagerAccount {
         index = IndexAccount();
         if (index == -1) {
             System.out.println("Tài khoản không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             System.out.println("Nhập Password mới:");
             String password = scanner.nextLine();
             accounts.get(index).setPassword(password);
             System.out.printf("Đã sửa Password của Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }
     }
@@ -186,15 +200,18 @@ public class ManagerAccount {
         index = IndexAccount();
         if (index < 0) {
             System.out.println("Tài khoản không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             if (accounts.get(index).getUsername().equals("tien")&&accounts.get(index).getPassword().equals("123")){
                 System.out.println("Không cho phép xoá tài kkoản này!");
+                System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             }
             else {
                 System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
                 accounts.remove(index);
+                System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             }
         }
@@ -203,6 +220,7 @@ public class ManagerAccount {
     public static void editInformationAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             editAccount();
@@ -212,6 +230,7 @@ public class ManagerAccount {
     public static void deleteAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             delete();
@@ -221,6 +240,7 @@ public class ManagerAccount {
     public static void findAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
             System.out.println(Account1());
@@ -264,6 +284,7 @@ public class ManagerAccount {
 
     public static void managerAdmin(int index) {
         System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
+        System.out.print("\nNhấn ENTER để tiếp tục");
         scanner.nextLine();
         while (true) {
             String string = """
@@ -321,6 +342,7 @@ public class ManagerAccount {
                 case 9:
                     System.out.println("\nDanh sách sản phẩm: ");
                     ManagerProduct.showProduct();
+                    System.out.print("\nNhấn ENTER để tiếp tục");
                     scanner.nextLine();
                     break;
                 case 10:
@@ -335,8 +357,8 @@ public class ManagerAccount {
     }
 
     public static void managerUser(int index) {
-        User curUser = (User) accounts.get(index);
         System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
+        System.out.print("\nNhấn ENTER để tiếp tục");
         scanner.nextLine();
         while (true) {
             String string = """

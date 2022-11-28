@@ -39,6 +39,7 @@ public class Main {
                         }
                     } else {
                         System.out.println("Đăng nhập thất bại.");
+                        System.out.print("\nNhấn ENTER để tiếp tục");
                         scanner.nextLine();
                     }
                     break;
