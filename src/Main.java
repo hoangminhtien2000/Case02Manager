@@ -1,6 +1,7 @@
 import login.LoginAdmin;
 import login.LoginUser;
 import manager.ManagerAccount;
+import manager.ManagerProduct;
 import model.Admin;
 import model.User;
 
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         ManagerAccount.readObjectAccount();
+        ManagerProduct.readObjectProduct();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String string = """
@@ -50,6 +52,7 @@ public class Main {
                     break;
                 case 3:
                     ManagerAccount.writeObjectAccount();
+                    ManagerProduct.writeObjectProduct();
                     System.exit(0);
                     break;
                 default:

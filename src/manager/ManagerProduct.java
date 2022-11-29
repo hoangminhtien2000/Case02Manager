@@ -1,8 +1,10 @@
 package manager;
 
+import model.Account;
 import model.Product;
 import sort.SortProduct_ID;
 
+import java.io.*;
 import java.util.*;
 
 public class ManagerProduct {
@@ -178,4 +180,29 @@ public class ManagerProduct {
             }
         }
     }
+
+    public static void writeObjectProduct() {
+        try (FileOutputStream fos = new FileOutputStream("dataObjectListProduct.txt");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(products);
+        } catch (Exception e) {
+            System.out.println("File không tồn tại " +
+                    "hoặc có lỗi trong lúc ghi.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void readObjectProduct() {
+        try (FileInputStream fis = new FileInputStream("dataObjectListProduct.txt");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            List<Product> product = (List<Product>) ois.readObject();
+            products = (ArrayList<Product>) product;
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            System.out.println("File không tồn tại " +
+                    "hoặc có lỗi trong lúc đọc.");
+            e.printStackTrace();
+        }
+    }
+
+
 }
