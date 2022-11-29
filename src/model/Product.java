@@ -5,13 +5,13 @@ public class Product {
     private int number;
     private String name;
     private double price;
-    private static int count = 0;
+
 
     public Product() {
     }
 
-    public Product(String name, int number, double price) {
-        this.id = count++;
+    public Product(int id,String name, int number, double price) {
+        this.id = id;
         this.name = name;
         this.number = number;
         this.price = price;

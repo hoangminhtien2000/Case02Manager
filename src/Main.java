@@ -1,3 +1,5 @@
+import login.LoginAdmin;
+import login.LoginUser;
 import manager.ManagerAccount;
 import model.Admin;
 import model.User;
@@ -32,10 +34,10 @@ public class Main {
                     int index = ManagerAccount.IndexAccount();
                     if (index != -1) {
                         if (ManagerAccount.getAccounts().get(index) instanceof Admin admin) {
-                            ManagerAccount.managerAdmin(index);
+                            LoginAdmin.loginAdmin();
                         }
                         if (ManagerAccount.getAccounts().get(index) instanceof User user) {
-                            ManagerAccount.managerUser(index);
+                            LoginUser.loginUser();
                         }
                     } else {
                         System.out.println("Đăng nhập thất bại.");

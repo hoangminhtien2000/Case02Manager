@@ -161,12 +161,19 @@ public class ManagerAccount {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.println("Nhập Password mới:");
-            String password = scanner.nextLine();
-            accounts.get(index).setPassword(password);
-            System.out.printf("Đã sửa Password của Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
-            System.out.print("\nNhấn ENTER để tiếp tục");
-            scanner.nextLine();
+            if (accounts.get(index).getUsername().equals("tien") && accounts.get(index).getPassword().equals("123")) {
+                System.out.println("Không cho phép sửa tài khoản này!");
+                System.out.print("\nNhấn ENTER để tiếp tục");
+                scanner.nextLine();
+            }else {
+                System.out.println("Nhập Password mới:");
+                String password = scanner.nextLine();
+                accounts.get(index).setPassword(password);
+                System.out.printf("Đã sửa Password của Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+                System.out.print("\nNhấn ENTER để tiếp tục");
+                scanner.nextLine();
+            }
+
         }
     }
 
@@ -280,114 +287,6 @@ public class ManagerAccount {
             System.out.println("File không tồn tại " +
                     "hoặc có lỗi trong lúc đọc.");
             e.printStackTrace();
-        }
-    }
-
-
-    public static void managerAdmin(int index) {
-        System.out.println("\nBạn đã đăng nhập bằng tài khoản Admin");
-        System.out.print("\nNhấn ENTER để tiếp tục");
-        scanner.nextLine();
-        while (true) {
-            String string = """
-                    ----------------Quản lý Account------------------
-                    1. Tạo tài khoản:
-                    2. Danh sách tài khoản:
-                    3. Sửa Password:
-                    4. Xoá Account:
-                    5. Tìm Account:
-                    ------------------Quản lý sản phẩm-----------------
-                    6. Thêm sản phẩm:
-                    7. Sửa thông tin sản phẩm:
-                    8. Xoá sản phẩm:
-                    9. Danh sách sản phẩm:
-                    10. Thêm số lượng sản phẩm:
-                    11. Đăng xuất:
-                    """;
-            System.out.println(string);
-            int choice;
-            do {
-                try {
-                    System.out.println("Mời nhập lựa chọn: ");
-                    choice = Integer.parseInt(scanner.nextLine());
-                    break;
-                } catch (InputMismatchException | NumberFormatException e) {
-                    System.out.println("Phải nhập số!");
-                }
-            } while (true);
-
-            switch (choice) {
-                case 1:
-                    addAdminUser();
-                    break;
-                case 2:
-                    showlistAccount();
-                    break;
-                case 3:
-                    editInformationAccount();
-                    break;
-                case 4:
-                    deleteAccount();
-                    break;
-                case 5:
-                    findAccount();
-                    break;
-                case 6:
-                    ManagerProduct.addArr();
-                    break;
-                case 7:
-                    ManagerProduct.edit();
-                    break;
-                case 8:
-                    ManagerProduct.delete();
-                    break;
-                case 9:
-                    System.out.println("\nDanh sách sản phẩm: ");
-                    ManagerProduct.showProduct();
-                    System.out.print("\nNhấn ENTER để tiếp tục");
-                    scanner.nextLine();
-                    break;
-                case 10:
-                    ManagerProduct.addNumberProduct();
-                    break;
-                case 11:
-                    return;
-                default:
-                    break;
-            }
-        }
-    }
-
-    public static void managerUser(int index) {
-        System.out.println("\nBạn đã đăng nhập bằng tài khoản User");
-        System.out.print("\nNhấn ENTER để tiếp tục");
-        scanner.nextLine();
-        while (true) {
-            String string = """
-                    1. Mua hàng:                 
-                    2. Đăng xuất:
-                    """;
-            System.out.println(string);
-            int choice;
-            do {
-                try {
-                    System.out.println("Mời nhập lựa chọn: ");
-                    choice = Integer.parseInt(scanner.nextLine());
-                    break;
-                } catch (InputMismatchException | NumberFormatException e) {
-                    System.out.println("Phải nhập số!");
-                }
-            } while (true);
-            switch (choice) {
-                case 1:
-                    ManagerProduct.showProduct();
-                    ManagerProduct.totalBillProduct();
-                    break;
-                case 2:
-                    return;
-                default:
-                    break;
-            }
         }
     }
 }
