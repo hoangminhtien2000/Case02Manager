@@ -10,16 +10,16 @@ import java.util.*;
 public class ManagerAccount {
     static Scanner scanner = new Scanner(System.in);
     static List<Account> accounts = new LinkedList<>();
-     static {
+
+    static {
         boolean checkisAdmin = false;
         for (Account account : accounts) {
             if (account.getUsername().equals("tien") && account.getPassword().equals("123")) {
                 checkisAdmin = true;
-
             }
         }
-        if (checkisAdmin ==false) {
-            accounts.add(new Admin(0,"tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
+        if (checkisAdmin == false) {
+            accounts.add(new Admin(0, "tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
         }
     }
 
@@ -75,7 +75,7 @@ public class ManagerAccount {
 
     public static Account createAccount(boolean isAdmin) {
         System.out.println("Nhập thông tin tài khoản: ");
-        int id=accounts.get(accounts.size()-1).getId()+1;
+        int id = accounts.get(accounts.size() - 1).getId() + 1;
         int index;
         String username;
         do {
@@ -106,52 +106,51 @@ public class ManagerAccount {
             if (age < 10 || age > 130) System.out.println("Phải nhập số lớn hơn 10 và nhỏ hơn 130!");
         } while (age < 10 || age > 130);
         String gender;
-        gender=scanGender();
+        gender = scanGender();
         if (isAdmin) {
-            Account admins = new Admin(id,username, password, name, age, gender);
+            Account admins = new Admin(id, username, password, name, age, gender);
             return admins;
         } else {
-            Account users = new User(id,username, password, name, age, gender);
+            Account users = new User(id, username, password, name, age, gender);
             return users;
         }
     }
 
     public static String scanGender() {
         String gender;
-            int choise;
-            String string = """
-                    Nhập Gender:
-                    \t1. Nam.
-                    \t2. Nữ.
-                    """;
-            System.out.println(string);
-            do {
-                try {
-                    do {
+        int choise;
+        String string = """
+                Nhập Gender:
+                \t1. Nam.
+                \t2. Nữ.
+                """;
+        System.out.println(string);
+        do {
+            try {
+                do {
 
-                        System.out.println("Nhập lựa chọn: ");
-                        choise = Integer.parseInt(scanner.nextLine());
-                           if (choise!=1&&choise!=2) System.out.println("Phải nhập 1 hoặc 2");
-                    }while (choise!=1&&choise!=2);
-                    break;
-                } catch (InputMismatchException | NumberFormatException e) {
-                    System.out.println("Phải nhập số");
-                }
-            } while (true);
-            switch (choise) {
-                case 1:
-                    gender = "Nam";
-                    break;
-                case 2:
-                    gender = "Nữ";
-                    break;
-                default:
-                    gender="";
-                    break;
+                    System.out.println("Nhập lựa chọn: ");
+                    choise = Integer.parseInt(scanner.nextLine());
+                    if (choise != 1 && choise != 2) System.out.println("Phải nhập 1 hoặc 2");
+                } while (choise != 1 && choise != 2);
+                break;
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Phải nhập số");
             }
+        } while (true);
+        switch (choise) {
+            case 1:
+                gender = "Nam";
+                break;
+            case 2:
+                gender = "Nữ";
+                break;
+            default:
+                gender = "";
+                break;
+        }
         return gender;
     }
-
 
     public static void editAccount() {
         int index;
@@ -183,15 +182,18 @@ public class ManagerAccount {
         return -1;
     }
 
-    public static String Account1() {
-        int index;
-        System.out.println("Nhập thông tin tài khoản muốn tìm: ");
-        index = IndexAccount();
-        if (index == -1) {
-            return "Tài khoản không tồn tại";
-        } else {
-            return accounts.get(index).toString();
+    public static void Account1() {
+        int count = 0;
+        System.out.println("Nhập Tên nhân viên muốn tìm:");
+        String name = scanner.nextLine();
+        System.out.printf("\n%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
+        for (int i = 0; i < accounts.size(); i++) {
+            if (accounts.get(i).getName().contains(name)) {
+                System.out.println(accounts.get(i).toString());
+                count++;
+            }
         }
+        if (count == 0) System.out.printf("Không có tài khoản nào có tên '%s'\n", name);
     }
 
     public static void delete() {
@@ -203,12 +205,11 @@ public class ManagerAccount {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            if (accounts.get(index).getUsername().equals("tien")&&accounts.get(index).getPassword().equals("123")){
-                System.out.println("Không cho phép xoá tài kkoản này!");
+            if (accounts.get(index).getUsername().equals("tien") && accounts.get(index).getPassword().equals("123")) {
+                System.out.println("Không cho phép xoá tài khoản này!");
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
-            }
-            else {
+            } else {
                 System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
                 accounts.remove(index);
                 System.out.print("\nNhấn ENTER để tiếp tục");
@@ -243,7 +244,8 @@ public class ManagerAccount {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.println(Account1());
+            Account1();
+            System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }
     }
@@ -362,9 +364,8 @@ public class ManagerAccount {
         scanner.nextLine();
         while (true) {
             String string = """
-                    1. Mua hàng:
-                    2. Giỏ hàng:
-                    3. Đăng xuất:
+                    1. Mua hàng:                 
+                    2. Đăng xuất:
                     """;
             System.out.println(string);
             int choice;
@@ -383,9 +384,6 @@ public class ManagerAccount {
                     ManagerProduct.totalBillProduct();
                     break;
                 case 2:
-                    ManagerProduct.managerCart.showCart();
-                    break;
-                case 3:
                     return;
                 default:
                     break;

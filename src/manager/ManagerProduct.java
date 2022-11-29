@@ -1,6 +1,5 @@
 package manager;
 
-import model.Cart;
 import model.Product;
 
 import java.util.*;
@@ -12,9 +11,6 @@ public class ManagerProduct {
     static {
         products.add(new Product("iphone", 5, 9000000));
     }
-
-    // public static Map<String,Product>products=new HashMap<>();
-    static ManagerCart managerCart = new ManagerCart();
 
     public static List<Product> getProducts() {
         return products;
