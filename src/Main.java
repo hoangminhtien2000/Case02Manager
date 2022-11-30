@@ -1,7 +1,8 @@
+import IO.IO;
 import login.LoginAdmin;
 import login.LoginUser;
 import manager.ManagerAccount;
-import manager.ManagerProduct;
+
 import model.Admin;
 import model.User;
 
@@ -10,16 +11,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ManagerAccount.readObjectAccount();
-        ManagerProduct.readObjectProduct();
+        IO.readAccount();
+        IO.readProduct();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String string = """
                     \nLOGIN/REGISTER:
                     1. Đăng nhập:
                     2. Đăng kí:
-                    3. Thoát.
-                    """;
+                    3. Thoát.""";
             System.out.println(string);
             int choice;
             do {
@@ -51,8 +51,8 @@ public class Main {
                     ManagerAccount.addUser();
                     break;
                 case 3:
-                    ManagerAccount.writeObjectAccount();
-                    ManagerProduct.writeObjectProduct();
+                    IO.writeAccount();
+                    IO.writeProduct();
                     System.exit(0);
                     break;
                 default:

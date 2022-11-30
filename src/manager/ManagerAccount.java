@@ -4,8 +4,8 @@ import model.Account;
 import model.Admin;
 import model.User;
 
-import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class ManagerAccount {
     static Scanner scanner = new Scanner(System.in);
@@ -14,17 +14,21 @@ public class ManagerAccount {
     static {
         boolean checkisAdmin = false;
         for (Account account : accounts) {
-            if (account.getUsername().equals("tien") && account.getPassword().equals("123")) {
+            if (account.getUsername().equals("tien@.tien") && account.getPassword().equals("tien123")) {
                 checkisAdmin = true;
             }
         }
         if (checkisAdmin == false) {
-            accounts.add(new Admin(0, "tien", "123", "Hoàng Minh Tiến", 22, "Nam"));
+            accounts.add(new Admin(0, "tien@.tien", "tien123", "Hoàng Minh Tiến", 22, "Nam"));
         }
     }
 
     public static List<Account> getAccounts() {
         return accounts;
+    }
+
+    public static void setAccounts(List<Account> accounts) {
+        ManagerAccount.accounts = accounts;
     }
 
     public static void showlistAccount() {
@@ -73,23 +77,62 @@ public class ManagerAccount {
         }
     }
 
+    public static String getUsername() {
+        String username="";
+        while (true) {
+            String string= """
+                    Nhập Username:
+                    Lưu ý: Có từ '6-31' kí tự, bắt đầu '0-9, a-z, A-z' có đuôi '@.tien'.""";
+            System.out.println(string);
+            username = scanner.nextLine();
+            boolean username1 = Pattern.matches("[0-9a-zA-Z@\\.]{6,31}", username);
+            boolean username2 = Pattern.matches("[0-9a-zA-Z]*@\\.tien", username);
+            if (username1 && username2) break;
+            else{
+                System.out.println("Nhập không đúng định dạng!");
+                System.out.print("\nNhấn ENTER để nhập lại");
+                scanner.nextLine();
+            }
+        }
+        return username;
+    }
+
+    public static String getPassword() {
+        String password="";
+        while (true) {
+            String string= """
+                    Nhập Password:
+                    Lưu ý: Có '6-31' kí tự, các kí tự chỉ bao gồm '0-9, a-z, A-z', có ít nhất 1 số và 1 chữ.""";
+            System.out.println(string);
+            password = scanner.nextLine();
+            boolean password1 = Pattern.matches("[0-9a-zA-Z]{6,31}", password);
+            boolean password2 = Pattern.matches("[0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*", password);
+            boolean password3 = Pattern.matches("[0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*", password);
+            if (password1 && password2 && password3) break;
+            else{
+                System.out.println("Nhập không đúng định dạng!");
+                System.out.print("\nNhấn ENTER để nhập lại");
+                scanner.nextLine();
+            }
+        }
+        return password;
+    }
+
     public static Account createAccount(boolean isAdmin) {
-        System.out.println("Nhập thông tin tài khoản: ");
+        System.out.println("\nNhập thông tin tài khoản: ");
         int id = accounts.get(accounts.size() - 1).getId() + 1;
         int index;
         String username;
         do {
             index = -1;
-            System.out.println("Nhập Username:");
-            username = scanner.nextLine();
+            username=getUsername();
             for (int i = 0; i < accounts.size(); i++) {
                 if (accounts.get(i).getUsername().equals(username))
                     index = i;
             }
             if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
         } while (index != -1);
-        System.out.println("Nhập Password: ");
-        String password = scanner.nextLine();
+        String password = getPassword();
         System.out.println("Nhập Name: ");
         String name = scanner.nextLine();
         int age;
@@ -122,8 +165,7 @@ public class ManagerAccount {
         String string = """
                 Nhập Gender:
                 \t1. Nam.
-                \t2. Nữ.
-                """;
+                \t2. Nữ.""";
         System.out.println(string);
         do {
             try {
@@ -161,11 +203,11 @@ public class ManagerAccount {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            if (accounts.get(index).getUsername().equals("tien") && accounts.get(index).getPassword().equals("123")) {
+            if (accounts.get(index).getUsername().equals("tien@.tien") && accounts.get(index).getPassword().equals("tien123")) {
                 System.out.println("Không cho phép sửa tài khoản này!");
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
-            }else {
+            } else {
                 System.out.println("Nhập Password mới:");
                 String password = scanner.nextLine();
                 accounts.get(index).setPassword(password);
@@ -212,7 +254,7 @@ public class ManagerAccount {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            if (accounts.get(index).getUsername().equals("tien") && accounts.get(index).getPassword().equals("123")) {
+            if (accounts.get(index).getUsername().equals("tien@.tien") && accounts.get(index).getPassword().equals("tien123")) {
                 System.out.println("Không cho phép xoá tài khoản này!");
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
@@ -254,39 +296,6 @@ public class ManagerAccount {
             Account1();
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
-        }
-    }
-
-    public static void writeObjectAccount() {
-        try (FileOutputStream fos = new FileOutputStream("dataObjectListAccount.txt");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-//            for (Account account : accounts) {
-//                oos.writeObject(account);
-//            }
-//            oos.writeObject(null);
-            oos.writeObject(accounts);
-        } catch (Exception e) {
-            System.out.println("File không tồn tại " +
-                    "hoặc có lỗi trong lúc ghi.");
-            e.printStackTrace();
-        }
-    }
-
-    public static void readObjectAccount() {
-        try (FileInputStream fis = new FileInputStream("dataObjectListAccount.txt");
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-//            accounts = new ArrayList<>();
-//             while (true){
-//                Account account = (Account) ois.readObject();
-//                if (account == null) break;
-//                accounts.add(account);
-//            }
-            List<Account> account = (List<Account>) ois.readObject();
-            accounts = (LinkedList<Account>) account;
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            System.out.println("File không tồn tại " +
-                    "hoặc có lỗi trong lúc đọc.");
-            e.printStackTrace();
         }
     }
 }

@@ -12,8 +12,7 @@ public class LoginUser {
             String string = """
                     \n--------Bạn đã đăng nhập bằng tài khoản User--------
                     1. Mua hàng                 
-                    2. Đăng xuất
-                    """;
+                    2. Đăng xuất""";
             System.out.println(string);
             int choice;
             do {

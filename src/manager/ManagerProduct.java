@@ -1,6 +1,5 @@
 package manager;
 
-import model.Account;
 import model.Product;
 import sort.SortProduct_ID;
 
@@ -12,8 +11,16 @@ public class ManagerProduct {
     static List<Product> products = new ArrayList<>();
 
     static {
-        products.add(new Product(0,"Iphone", 5, 9000000));
-        Collections.sort(products,new SortProduct_ID());
+        products.add(new Product(0, "Iphone", 5, 9000000));
+        Collections.sort(products, new SortProduct_ID());
+    }
+
+    public static List<Product> getProducts() {
+        return products;
+    }
+
+    public static void setProducts(List<Product> products) {
+        ManagerProduct.products = products;
     }
 
     public static void showProduct() {
@@ -22,7 +29,7 @@ public class ManagerProduct {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.printf("%-5s%-15s%-10s%s\n","STT","Tên sản phẩm","Số lượng","Giá");
+            System.out.printf("%-5s%-15s%-10s%s\n", "STT", "Tên sản phẩm", "Số lượng", "Giá");
             for (Product product : products) {
                 System.out.println(product.toString());
             }
@@ -65,10 +72,10 @@ public class ManagerProduct {
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Phải nhập số!");
                 }
-            }while (true);
-            if (number<=0||price<=0) System.out.println("Phải nhập số lượng và giá sản phẩm lớn hơn 0");
-        }while (number<=0||price<=0);
-        Product product = new Product(id,name, number, price);
+            } while (true);
+            if (number <= 0 || price <= 0) System.out.println("Phải nhập số lượng và giá sản phẩm lớn hơn 0");
+        } while (number <= 0 || price <= 0);
+        Product product = new Product(id, name, number, price);
         return product;
     }
 
@@ -77,14 +84,14 @@ public class ManagerProduct {
         do {
             try {
                 System.out.println("Nhập ID sản phẩm:");
-                id=Integer.parseInt(scanner.nextLine());
+                id = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Phải nhập số");
             }
         } while (true);
         for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId()==id)
+            if (products.get(i).getId() == id)
                 return i;
         }
         return -1;
@@ -100,11 +107,11 @@ public class ManagerProduct {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            if (products.get(index).getName().equals("Iphone")){
+            if (products.get(index).getName().equals("Iphone")) {
                 System.out.println("Không cho phép xoá sản phẩm này!");
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
-            }else {
+            } else {
                 System.out.printf("Đã xoá sản phẩm '%s' trong danh sách", products.get(index).getName());
                 products.remove(index);
                 System.out.print("\nNhấn ENTER để tiếp tục");
@@ -132,7 +139,7 @@ public class ManagerProduct {
                     } catch (InputMismatchException | NumberFormatException e) {
                         System.out.println("Phải nhập số!");
                     }
-                }while (true);
+                } while (true);
                 if (number <= 0) {
                     System.out.println("\nMời nhập lại số lượng sản phẩm");
                 }
@@ -163,7 +170,7 @@ public class ManagerProduct {
                         } catch (InputMismatchException | NumberFormatException e) {
                             System.out.println("Phải nhập số!");
                         }
-                    }while (true);
+                    } while (true);
                     if (number > products.get(index).getNumber() || number <= 0) {
                         System.out.println("\nMời nhập lại số lượng sản phẩm");
                     }
@@ -180,29 +187,4 @@ public class ManagerProduct {
             }
         }
     }
-
-    public static void writeObjectProduct() {
-        try (FileOutputStream fos = new FileOutputStream("dataObjectListProduct.txt");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(products);
-        } catch (Exception e) {
-            System.out.println("File không tồn tại " +
-                    "hoặc có lỗi trong lúc ghi.");
-            e.printStackTrace();
-        }
-    }
-
-    public static void readObjectProduct() {
-        try (FileInputStream fis = new FileInputStream("dataObjectListProduct.txt");
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-            List<Product> product = (List<Product>) ois.readObject();
-            products = (ArrayList<Product>) product;
-        } catch (ClassNotFoundException | ClassCastException | IOException e) {
-            System.out.println("File không tồn tại " +
-                    "hoặc có lỗi trong lúc đọc.");
-            e.printStackTrace();
-        }
-    }
-
-
 }

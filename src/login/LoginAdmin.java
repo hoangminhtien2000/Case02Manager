@@ -18,8 +18,7 @@ public  class LoginAdmin {
                     3. Sửa Password
                     4. Xoá Account
                     5. Tìm Account
-                    6. Quay lại
-                    """;
+                    6. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -64,8 +63,7 @@ public  class LoginAdmin {
                     2. Xoá sản phẩm
                     3. Danh sách sản phẩm
                     4. Thêm số lượng sản phẩm
-                    5. Quay lại
-                    """;
+                    5. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -108,8 +106,7 @@ public  class LoginAdmin {
                     \n----------Bạn đã đăng nhập bằng tài khoản Admin----------
                     1. Quản lý Account
                     2. Quản lý sản phẩm
-                    3. Đăng xuất
-                    """;
+                    3. Đăng xuất""";
             System.out.println(string);
             int choice;
             do {
