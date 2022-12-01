@@ -1,7 +1,7 @@
-package IO;
+package io;
 
-import manager.ManagerAccount;
-import manager.ManagerProduct;
+import manager.AccountManager;
+import manager.ProductManager;
 import model.Account;
 import model.Product;
 
@@ -14,7 +14,7 @@ public class IO {
     public static void writeAccount() {
         try (FileOutputStream fos = new FileOutputStream("dataAccount.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(ManagerAccount.getAccounts());
+            oos.writeObject(AccountManager.getAccounts());
         } catch (Exception e) {
             System.out.println("File không tồn tại " +
                     "hoặc có lỗi trong lúc ghi.");
@@ -26,7 +26,7 @@ public class IO {
         try (FileInputStream fis = new FileInputStream("dataAccount.txt");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             List<Account> account = (List<Account>) ois.readObject();
-             ManagerAccount.setAccounts((LinkedList<Account>) account) ;
+             AccountManager.setAccounts((LinkedList<Account>) account) ;
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("File không tồn tại " +
                     "hoặc có lỗi trong lúc đọc.");
@@ -37,7 +37,7 @@ public class IO {
     public static void writeProduct() {
         try (FileOutputStream fos = new FileOutputStream("dataProduct.txt");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(ManagerProduct.getProducts());
+            oos.writeObject(ProductManager.getProducts());
         } catch (Exception e) {
             System.out.println("File không tồn tại " +
                     "hoặc có lỗi trong lúc ghi.");
@@ -49,12 +49,11 @@ public class IO {
         try (FileInputStream fis = new FileInputStream("dataProduct.txt");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             List<Product> product = (List<Product>) ois.readObject();
-            ManagerProduct.setProducts((ArrayList<Product>) product);
+            ProductManager.setProducts((LinkedList<Product>) product);
         } catch (ClassNotFoundException | ClassCastException | IOException e) {
             System.out.println("File không tồn tại " +
                     "hoặc có lỗi trong lúc đọc.");
             e.printStackTrace();
         }
     }
-
 }

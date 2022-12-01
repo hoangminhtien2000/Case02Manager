@@ -1,18 +1,22 @@
 package manager;
 
 import model.Product;
-import sort.SortProduct_ID;
+import sort.SortProduct_Price;
 
-import java.io.*;
 import java.util.*;
 
-public class ManagerProduct {
+public class ProductManager {
     static Scanner scanner = new Scanner(System.in);
-    static List<Product> products = new ArrayList<>();
+    static List<Product> products = new LinkedList<>();
 
     static {
         products.add(new Product(0, "Iphone", 5, 9000000));
-        Collections.sort(products, new SortProduct_ID());
+    }
+
+    static List<Product> productsPrice = new LinkedList<>();
+
+    static {
+        Collections.sort(productsPrice, new SortProduct_Price());
     }
 
     public static List<Product> getProducts() {
@@ -20,7 +24,15 @@ public class ManagerProduct {
     }
 
     public static void setProducts(List<Product> products) {
-        ManagerProduct.products = products;
+        ProductManager.products = products;
+    }
+
+    public static List<Product> getProductsPrice() {
+        return productsPrice;
+    }
+
+    public static void setProductsPrice(List<Product> productsPrice) {
+        ProductManager.productsPrice = productsPrice;
     }
 
     public static void showProduct() {
@@ -36,12 +48,53 @@ public class ManagerProduct {
         }
     }
 
-    public static void addArr() {
+    public static void showProductPrice() {
+        if (productsPrice.isEmpty()) {
+            System.out.println("Không có sản phẩm nào nằm trong mức giá bạn muốn tìm");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            System.out.printf("%-5s%-15s%-10s%s\n", "STT", "Tên sản phẩm", "Số lượng", "Giá");
+            for (Product product : productsPrice) {
+                System.out.println(product.toString());
+            }
+        }
+    }
+
+    public static void addProduct() {
         Product product = createProduct();
         products.add(product);
         System.out.printf("Đã thêm sản phẩm '%s' vào danh sách", product.getName());
         System.out.print("\nNhấn ENTER để tiếp tục");
         scanner.nextLine();
+    }
+
+//    public static void addProductPrice() {
+//
+//        setProductsPrice();
+//
+//    }
+
+    public static void productSortPrice(){
+        double priceFirst;
+        double priceLast;
+        do {
+            do {
+                try {
+                    System.out.println("Nhập mức giá khởi đầu: ");
+                    priceFirst = Double.parseDouble(scanner.nextLine());
+                    System.out.println("Nhập mức giá cuối cùng: ");
+                    priceLast = Double.parseDouble(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số!");
+                }
+            } while (true);
+            if (priceFirst <= 0 || priceFirst > priceLast) System.out.println("Phải nhập mức giá lớn hơn 0 và giá khởi đầu không lớn hơn giá cuối cùng");
+        } while (priceFirst <= 0 || priceFirst > priceLast);
+        for (Product product : products) {
+            if (product.getPrice()>=priceFirst&&product.getPrice()<=priceLast)productsPrice.add(product);
+        }
     }
 
     public static Product createProduct() {

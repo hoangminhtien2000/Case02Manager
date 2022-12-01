@@ -4,9 +4,9 @@ import model.Product;
 
 import java.util.Comparator;
 
-public class SortProduct_ID implements Comparator<Product> {
+public class SortProduct_Price implements Comparator<Product> {
     @Override
     public int compare(Product product1, Product product2) {
-        return product1.getId()-product2.getId();
+        return (int)(product1.getPrice()-product2.getPrice());
     }
 }

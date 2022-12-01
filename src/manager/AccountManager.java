@@ -7,7 +7,7 @@ import model.User;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class ManagerAccount {
+public class AccountManager {
     static Scanner scanner = new Scanner(System.in);
     static List<Account> accounts = new LinkedList<>();
 
@@ -28,7 +28,7 @@ public class ManagerAccount {
     }
 
     public static void setAccounts(List<Account> accounts) {
-        ManagerAccount.accounts = accounts;
+        AccountManager.accounts = accounts;
     }
 
     public static void showlistAccount() {

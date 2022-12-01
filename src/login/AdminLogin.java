@@ -1,12 +1,12 @@
 package login;
 
-import manager.ManagerAccount;
-import manager.ManagerProduct;
+import manager.AccountManager;
+import manager.ProductManager;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public  class LoginAdmin {
+public  class AdminLogin {
     static Scanner scanner = new Scanner(System.in);
 
     public static void managerAccount() {
@@ -33,19 +33,19 @@ public  class LoginAdmin {
 
             switch (choice) {
                 case 1:
-                    ManagerAccount.addAdminUser();
+                    AccountManager.addAdminUser();
                     break;
                 case 2:
-                    ManagerAccount.showlistAccount();
+                    AccountManager.showlistAccount();
                     break;
                 case 3:
-                    ManagerAccount.editInformationAccount();
+                    AccountManager.editInformationAccount();
                     break;
                 case 4:
-                    ManagerAccount.deleteAccount();
+                    AccountManager.deleteAccount();
                     break;
                 case 5:
-                    ManagerAccount.findAccount();
+                    AccountManager.findAccount();
                     break;
                 case 6:
                     return;
@@ -78,19 +78,19 @@ public  class LoginAdmin {
 
             switch (choice) {
                 case 1:
-                    ManagerProduct.addArr();
+                    ProductManager.addProduct();
                     break;
                 case 2:
-                    ManagerProduct.delete();
+                    ProductManager.delete();
                     break;
                 case 3:
                     System.out.println("\nDanh sách sản phẩm: ");
-                    ManagerProduct.showProduct();
+                    ProductManager.showProduct();
                     System.out.print("\nNhấn ENTER để tiếp tục");
                     scanner.nextLine();
                     break;
                 case 4:
-                    ManagerProduct.addNumberProduct();
+                    ProductManager.addNumberProduct();
                     break;
                 case 5:
                     return;

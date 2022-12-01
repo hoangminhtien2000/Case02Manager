@@ -1,7 +1,7 @@
-import IO.IO;
-import login.LoginAdmin;
-import login.LoginUser;
-import manager.ManagerAccount;
+import io.IO;
+import login.AdminLogin;
+import login.UserLogin;
+import manager.AccountManager;
 
 import model.Admin;
 import model.User;
@@ -33,13 +33,13 @@ public class Main {
             } while (true);
             switch (choice) {
                 case 1:
-                    int index = ManagerAccount.IndexAccount();
+                    int index = AccountManager.IndexAccount();
                     if (index != -1) {
-                        if (ManagerAccount.getAccounts().get(index) instanceof Admin admin) {
-                            LoginAdmin.loginAdmin();
+                        if (AccountManager.getAccounts().get(index) instanceof Admin admin) {
+                            AdminLogin.loginAdmin();
                         }
-                        if (ManagerAccount.getAccounts().get(index) instanceof User user) {
-                            LoginUser.loginUser();
+                        if (AccountManager.getAccounts().get(index) instanceof User user) {
+                            UserLogin.loginUser();
                         }
                     } else {
                         System.out.println("Đăng nhập thất bại.");
@@ -48,7 +48,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    ManagerAccount.addUser();
+                    AccountManager.addUser();
                     break;
                 case 3:
                     IO.writeAccount();
