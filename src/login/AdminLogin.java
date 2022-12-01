@@ -62,8 +62,9 @@ public  class AdminLogin {
                     1. Thêm sản phẩm                
                     2. Xoá sản phẩm
                     3. Danh sách sản phẩm
-                    4. Thêm số lượng sản phẩm
-                    5. Quay lại""";
+                    4. Sắp xếp sản phẩm theo giá
+                    5. Thêm số lượng sản phẩm
+                    6. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -90,9 +91,15 @@ public  class AdminLogin {
                     scanner.nextLine();
                     break;
                 case 4:
-                    ProductManager.addNumberProduct();
+                    System.out.println("\nDanh sách sản phẩm: ");
+                    ProductManager.showProductSortPrice();
+                    System.out.print("\nNhấn ENTER để tiếp tục");
+                    scanner.nextLine();
                     break;
                 case 5:
+                    ProductManager.addNumberProduct();
+                    break;
+                case 6:
                     return;
                 default:
                     break;

@@ -2,6 +2,7 @@ package login;
 
 import manager.ProductManager;
 
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -26,9 +27,10 @@ public class UserLogin {
             } while (true);
             switch (choice) {
                 case 1:
+                    ProductManager.clearProductPrice();
                     ProductManager.productSortPrice();
                     ProductManager.showProductPrice();
-                    ProductManager.totalBillProduct();
+                    ProductManager.totalBillProductPrice();
                     return;
                 case 2:
                     ProductManager.showProduct();

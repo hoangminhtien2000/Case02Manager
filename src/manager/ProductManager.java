@@ -1,6 +1,7 @@
 package manager;
 
 import model.Product;
+import sort.SortProduct_ID;
 import sort.SortProduct_Price;
 
 import java.util.*;
@@ -48,6 +49,21 @@ public class ProductManager {
         }
     }
 
+    public static void showProductSortPrice() {
+        if (products.isEmpty()) {
+            System.out.println("Không có sản phẩm nào");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            Collections.sort(products, new SortProduct_Price());
+            System.out.printf("%-5s%-15s%-10s%s\n", "STT", "Tên sản phẩm", "Số lượng", "Giá");
+            for (Product product : products) {
+                System.out.println(product.toString());
+            }
+            Collections.sort(products,new SortProduct_ID());
+        }
+    }
+
     public static void showProductPrice() {
         if (productsPrice.isEmpty()) {
             System.out.println("Không có sản phẩm nào nằm trong mức giá bạn muốn tìm");
@@ -61,6 +77,10 @@ public class ProductManager {
         }
     }
 
+    public static void clearProductPrice(){
+        productsPrice.clear();
+    }
+
     public static void addProduct() {
         Product product = createProduct();
         products.add(product);
@@ -68,12 +88,6 @@ public class ProductManager {
         System.out.print("\nNhấn ENTER để tiếp tục");
         scanner.nextLine();
     }
-
-//    public static void addProductPrice() {
-//
-//        setProductsPrice();
-//
-//    }
 
     public static void productSortPrice(){
         double priceFirst;
@@ -136,7 +150,7 @@ public class ProductManager {
         int id;
         do {
             try {
-                System.out.println("Nhập ID sản phẩm:");
+                System.out.println("Nhập STT sản phẩm:");
                 id = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {
@@ -145,6 +159,24 @@ public class ProductManager {
         } while (true);
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == id)
+                return i;
+        }
+        return -1;
+    }
+
+    public static int IndexProductPrice() {
+        int id;
+        do {
+            try {
+                System.out.println("Nhập STT sản phẩm:");
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Phải nhập số");
+            }
+        } while (true);
+        for (int i = 0; i < productsPrice.size(); i++) {
+            if (productsPrice.get(i).getId() == id)
                 return i;
         }
         return -1;
@@ -205,9 +237,48 @@ public class ProductManager {
     }
 
     public static void totalBillProduct() {
+        System.out.println("Nhập thông tin sản phẩm muốn mua.");
         int number;
         int index;
         index = IndexProduct();
+        if (index == -1) {
+            System.out.println("Sản phẩm không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            if (products.get(index).getNumber() > 0) {
+                do {
+                    do {
+                        try {
+                            System.out.println("Nhập số lượng sản phẩm muốn mua:");
+                            number = Integer.parseInt(scanner.nextLine());
+                            break;
+                        } catch (InputMismatchException | NumberFormatException e) {
+                            System.out.println("Phải nhập số!");
+                        }
+                    } while (true);
+                    if (number > products.get(index).getNumber() || number <= 0) {
+                        System.out.println("\nMời nhập lại số lượng sản phẩm");
+                    }
+                } while (products.get(index).getNumber() < number || number <= 0);
+                products.get(index).buy(number);
+                System.out.printf("Đã mua sản phẩm '%s' với số lượng %d.", products.get(index).getName(), number);
+                System.out.println("\nTổng số tiền phải thanh toán: " + products.get(index).covertBill(products.get(index).bill(number)));
+                System.out.print("\nNhấn ENTER để tiếp tục");
+                scanner.nextLine();
+            } else {
+                System.out.println("Sản phẩm hiện tại đã hết hàng.");
+                System.out.print("\nNhấn ENTER để tiếp tục");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void totalBillProductPrice() {
+        System.out.println("Nhập thông tin sản phẩm muốn mua.");
+        int number;
+        int index;
+        index = IndexProductPrice();
         if (index == -1) {
             System.out.println("Sản phẩm không tồn tại.");
             System.out.print("\nNhấn ENTER để tiếp tục");
