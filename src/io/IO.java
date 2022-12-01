@@ -56,4 +56,26 @@ public class IO {
             e.printStackTrace();
         }
     }
+
+    public static void writeBin() {
+        try (FileOutputStream fos = new FileOutputStream("dataBin.txt");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(AccountManager.getBin());
+        } catch (Exception e) {
+            System.out.println("File không tồn tại " +
+                    "hoặc có lỗi trong lúc ghi.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void readBin() {
+        try (FileInputStream fis = new FileInputStream("dataBin.txt");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            List<Account> account = (List<Account>) ois.readObject();
+            AccountManager.setBin((LinkedList<Account>) account); ;
+        } catch (ClassNotFoundException | ClassCastException | IOException e) {
+            System.out.println();
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package manager;
 import model.Account;
 import model.Admin;
 import model.User;
+import sort.SortAccount_ID;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
 public class AccountManager {
     static Scanner scanner = new Scanner(System.in);
     static List<Account> accounts = new LinkedList<>();
-
+    static List<Account> bin=new LinkedList<>();
     static {
         boolean checkisAdmin = false;
         for (Account account : accounts) {
@@ -23,6 +24,14 @@ public class AccountManager {
         }
     }
 
+    public static List<Account> getBin() {
+        return bin;
+    }
+
+    public static void setBin(List<Account> bin) {
+        AccountManager.bin = bin;
+    }
+
     public static List<Account> getAccounts() {
         return accounts;
     }
@@ -32,18 +41,27 @@ public class AccountManager {
     }
 
     public static void showlistAccount() {
-        if (accounts.size() == 0) {
+        if (accounts.isEmpty()) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.println("\nDanh sách Account: ");
+            System.out.println("\nDanh sách tài khoản: ");
             System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
-            for (int i = 0; i < accounts.size(); i++) {
-                System.out.println(accounts.get(i).toString());
+            for (Account account : accounts) {
+                System.out.println(account.toString());
             }
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
+        }
+    }
+
+    public static void showListBin(){
+            System.out.println("\nDanh sách tài khoản đã xoá: ");
+            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
+            for (Account account : bin) {
+                System.out.println(account.toString());
+
         }
     }
 
@@ -52,30 +70,30 @@ public class AccountManager {
         accounts.add(users);
     }
 
-    public static void addAdminUser() {
-        String string = """                    
-                \t1. Admin:
-                \t2. User:
-                """;
-        System.out.println(string);
-        int choice;
-        do {
-            try {
-                System.out.println("Nhập loại tài khoản muốn tạo(Nhấn số khác 1 hoặc 2 để huỷ lệnh tạo tài khoản):");
-                choice = Integer.parseInt(scanner.nextLine());
-                break;
-            } catch (InputMismatchException | NumberFormatException e) {
-                System.out.println("Phải nhập số");
-            }
-        } while (true);
-        if (choice == 1) {
-            Account admins = createAccount(true);
-            accounts.add(admins);
-        } else if (choice == 2) {
-            Account users = createAccount(false);
-            accounts.add(users);
-        }
-    }
+//    public static void addAdminUser() {
+//        String string = """
+//                \t1. Admin:
+//                \t2. User:
+//                """;
+//        System.out.println(string);
+//        int choice;
+//        do {
+//            try {
+//                System.out.println("Nhập loại tài khoản muốn tạo(Nhấn số khác 1 hoặc 2 để huỷ lệnh tạo tài khoản):");
+//                choice = Integer.parseInt(scanner.nextLine());
+//                break;
+//            } catch (InputMismatchException | NumberFormatException e) {
+//                System.out.println("Phải nhập số");
+//            }
+//        } while (true);
+//        if (choice == 1) {
+//            Account admins = createAccount(true);
+//            accounts.add(admins);
+//        } else if (choice == 2) {
+//            Account users = createAccount(false);
+//            accounts.add(users);
+//        }
+//    }
 
     public static String getUsername() {
         String username="";
@@ -127,7 +145,7 @@ public class AccountManager {
             index = -1;
             username=getUsername();
             for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).getUsername().equals(username))
+                if (accounts.get(i).getUsername().equals(username)&&bin.get(i).getName().equals(username))
                     index = i;
             }
             if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
@@ -231,6 +249,24 @@ public class AccountManager {
         return -1;
     }
 
+    public static int findID(){
+        int id;
+        do {
+            try {
+                System.out.println("Nhập ID tài khoản:");
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Phải nhập số");
+            }
+        } while (true);
+        for (int i = 0; i < bin.size(); i++) {
+            if (bin.get(i).getId() == id)
+                return i;
+        }
+        return -1;
+    }
+
     public static void Account1() {
         int count = 0;
         System.out.println("Nhập Tên nhân viên muốn tìm:");
@@ -260,7 +296,7 @@ public class AccountManager {
                 scanner.nextLine();
             } else {
                 System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
-                accounts.remove(index);
+                bin.add(accounts.remove(index));
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             }
@@ -294,6 +330,23 @@ public class AccountManager {
             scanner.nextLine();
         } else {
             Account1();
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        }
+    }
+
+    public static void restore(){
+        int index;
+        System.out.println("Nhập thông tin tài khoản muốn khôi phục: ");
+        index = findID();
+        if (index == -1) {
+            System.out.println("Tài khoản không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            System.out.printf("Đã khôi phục Account có Username '%s' ", bin.get(index).getUsername());
+            accounts.add(bin.remove(index));
+            Collections.sort(accounts,new SortAccount_ID());
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }

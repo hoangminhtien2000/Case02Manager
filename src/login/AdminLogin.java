@@ -12,12 +12,12 @@ public  class AdminLogin {
     public static void managerAccount() {
         while (true) {
             String string = """
-                    ----------------Quản lý Account------------------
-                    1. Tạo tài khoản
-                    2. Danh sách tài khoản
-                    3. Sửa Password
-                    4. Xoá Account
-                    5. Tìm Account
+                    ----------------Quản lý tài khoản------------------
+                    1. Danh sách tài khoản
+                    2. Sửa mật khẩu
+                    3. Xoá tài khoản
+                    4. Tìm tài khoản(Theo tên gần đúng)
+                    5. Khôi phục tài khoản
                     6. Quay lại""";
             System.out.println(string);
             int choice;
@@ -30,22 +30,28 @@ public  class AdminLogin {
                     System.out.println("Phải nhập số!");
                 }
             } while (true);
-
             switch (choice) {
                 case 1:
-                    AccountManager.addAdminUser();
-                    break;
-                case 2:
                     AccountManager.showlistAccount();
                     break;
-                case 3:
+                case 2:
                     AccountManager.editInformationAccount();
                     break;
-                case 4:
+                case 3:
                     AccountManager.deleteAccount();
                     break;
-                case 5:
+                case 4:
                     AccountManager.findAccount();
+                    break;
+                case 5:
+                    if (AccountManager.getBin().isEmpty()) {
+                        System.out.println("Chưa có tài khoản nào bị xoá.");
+                        System.out.print("\nNhấn ENTER để tiếp tục");
+                        scanner.nextLine();
+                    } else {
+                        AccountManager.showListBin();
+                        AccountManager.restore();
+                    }
                     break;
                 case 6:
                     return;
@@ -111,7 +117,7 @@ public  class AdminLogin {
         while (true) {
             String string = """
                     \n----------Bạn đã đăng nhập bằng tài khoản Admin----------
-                    1. Quản lý Account
+                    1. Quản lý tài khoản
                     2. Quản lý sản phẩm
                     3. Đăng xuất""";
             System.out.println(string);

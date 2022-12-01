@@ -13,9 +13,12 @@ public class Main {
     public static void main(String[] args) {
         IO.readAccount();
         IO.readProduct();
+        IO.readBin();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String string = """
+                    \n------------------------PHẦN MỀM QUẢN LÝ TÀI KHOẢN---------------------
+                                         ~ Người thực hiện: Hoàng Minh Tiến ~
                     \nLOGIN/REGISTER:
                     1. Đăng nhập:
                     2. Đăng kí:
@@ -53,6 +56,7 @@ public class Main {
                 case 3:
                     IO.writeAccount();
                     IO.writeProduct();
+                    IO.writeBin();
                     System.exit(0);
                     break;
                 default:
