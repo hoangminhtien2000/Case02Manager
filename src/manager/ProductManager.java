@@ -157,9 +157,9 @@ public class ProductManager {
                 System.out.println("Phải nhập số");
             }
         } while (true);
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getId() == id)
-                return i;
+        for (Product product : products) {
+            if (product.getId() == id)
+                return id;
         }
         return -1;
     }
@@ -175,9 +175,9 @@ public class ProductManager {
                 System.out.println("Phải nhập số");
             }
         } while (true);
-        for (int i = 0; i < productsPrice.size(); i++) {
-            if (productsPrice.get(i).getId() == id)
-                return i;
+        for (Product product : productsPrice) {
+            if (product.getId() == id)
+                return id;
         }
         return -1;
     }
