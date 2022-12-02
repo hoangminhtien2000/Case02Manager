@@ -46,6 +46,8 @@ public class ProductManager {
             for (Product product : products) {
                 System.out.println(product.toString());
             }
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
         }
     }
 
@@ -104,8 +106,8 @@ public class ProductManager {
                     System.out.println("Phải nhập số!");
                 }
             } while (true);
-            if (priceFirst <= 0 || priceFirst > priceLast) System.out.println("Phải nhập mức giá lớn hơn 0 và giá khởi đầu không lớn hơn giá cuối cùng");
-        } while (priceFirst <= 0 || priceFirst > priceLast);
+            if (priceFirst < 0 || priceFirst > priceLast) System.out.println("Phải nhập mức giá lớn hơn hoặc bằng 0 và giá khởi đầu không lớn hơn giá cuối cùng");
+        } while (priceFirst < 0 || priceFirst > priceLast);
         for (Product product : products) {
             if (product.getPrice()>=priceFirst&&product.getPrice()<=priceLast)productsPrice.add(product);
         }

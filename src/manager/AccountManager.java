@@ -2,6 +2,7 @@ package manager;
 
 import model.Account;
 import model.Admin;
+import model.Product;
 import model.User;
 import sort.SortAccount_ID;
 
@@ -56,13 +57,17 @@ public class AccountManager {
             scanner.nextLine();
         }
     }
-
     public static void showListBin() {
-        System.out.println("\nDanh sách tài khoản đã xoá: ");
-        System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
-        for (Account account : bin) {
-            System.out.println(account.toString());
-
+        if (bin.isEmpty()) {
+            System.out.println("Chưa có tài khoản nào bị xoá");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            System.out.println("\nDanh sách tài khoản đã bị khoá: ");
+            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
+            for (Account account : bin) {
+                System.out.println(account.toString());
+            }
         }
     }
 
@@ -101,7 +106,7 @@ public class AccountManager {
         while (true) {
             String string = """
                     Nhập Username:
-                    Lưu ý: Có từ '6-31' kí tự, bắt đầu '0-9, a-z, A-z' có đuôi '@.tien'.""";
+                    Lưu ý: Có từ '6-31' kí tự, bắt đầu '0-9, a-z, A-Z' có đuôi '@.tien'.""";
             System.out.println(string);
             username = scanner.nextLine();
             boolean username1 = Pattern.matches("[0-9a-zA-Z@\\.]{6,31}", username);
@@ -121,7 +126,7 @@ public class AccountManager {
         while (true) {
             String string = """
                     Nhập Password:
-                    Lưu ý: Có '6-31' kí tự, các kí tự chỉ bao gồm '0-9, a-z, A-z', có ít nhất 1 số và 1 chữ.""";
+                    Lưu ý: Có '6-31' kí tự, các kí tự chỉ bao gồm '0-9, a-z, A-Z', có ít nhất 1 số và 1 chữ.""";
             System.out.println(string);
             password = scanner.nextLine();
             boolean password1 = Pattern.matches("[0-9a-zA-Z]{6,31}", password);
@@ -137,9 +142,24 @@ public class AccountManager {
         return password;
     }
 
+    public static int findMaxID() {
+        if (bin.isEmpty()) {
+            return 0;
+        } else {
+            int max = accounts.get(accounts.size() - 1).getId();
+            if (!bin.isEmpty()){
+                for (Account account : bin) {
+                    if (account.getId()>max) max=account.getId();
+                }
+            }
+            return max;
+        }
+    }
+
+
     public static Account createAccount(boolean isAdmin) {
         System.out.println("\nNhập thông tin tài khoản: ");
-        int id = accounts.get(accounts.size() - 1).getId() + 1;
+        int id = findMaxID()  + 1;
         int index;
         String username;
         do {
@@ -317,7 +337,7 @@ public class AccountManager {
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             } else {
-                System.out.printf("Đã xoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+                System.out.printf("Đã khoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
                 bin.add(accounts.remove(index));
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();

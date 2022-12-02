@@ -28,8 +28,14 @@ public class UserLogin {
                 case 1:
                     ProductManager.clearProductPrice();
                     ProductManager.productSortPrice();
-                    ProductManager.showProductPrice();
-                    ProductManager.totalBillProductPrice();
+                    if (ProductManager.getProductsPrice().isEmpty()){
+                        System.out.println("Không có sản phẩm nào trong mức giá ");
+                        System.out.println("Nhấn Enter để tiếp tục.");
+                        scanner.nextLine();
+                    }else {
+                        ProductManager.showProductPrice();
+                        ProductManager.totalBillProductPrice();
+                    }
                     return;
                 case 2:
                     ProductManager.showProduct();

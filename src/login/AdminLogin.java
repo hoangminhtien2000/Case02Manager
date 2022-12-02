@@ -64,10 +64,11 @@ public  class AdminLogin {
         while (true) {
             String string = """
                     ----------------Quản lý thùng rác------------------
-                    1. Khôi phục tài khoản
-                    2. Xoá tài khoản khỏi thùng rác
-                    3. Dọn dẹp thùng rác.
-                    4. Quay lại""";
+                    1. Danh sách tài khoản đã bị khoá
+                    2. Khôi phục tài khoản
+                    3. Xoá tài khoản khỏi thùng rác
+                    4. Dọn dẹp thùng rác.
+                    5. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -81,17 +82,24 @@ public  class AdminLogin {
             } while (true);
             switch (choice) {
                 case 1:
+                    AccountManager.showListBin();
+                    System.out.print("\nNhấn ENTER để tiếp tục");
+                    scanner.nextLine();
+                    break;
+                case 2:
                     System.out.println("\n----------------Khôi phục tài khoản--------------");
                     AccountManager.showListBin();
                     AccountManager.restore();
                     break;
-                case 2:
+                case 3:
+                    System.out.println("\n----------------Xoá tài khoản khỏi thùng rác--------------");
+                    AccountManager.showListBin();
                     AccountManager.deleteAccount();
                     break;
-                case 3:
+                case 4:
                     AccountManager.clearBin();
                     break;
-                case 4:
+                case 5:
                     return;
                 default:
                     break;
@@ -124,10 +132,7 @@ public  class AdminLogin {
 
             switch (choice) {
                 case 1:
-                    System.out.println("\nDanh sách sản phẩm: ");
                     ProductManager.showProduct();
-                    System.out.print("\nNhấn ENTER để tiếp tục");
-                    scanner.nextLine();
                     break;
                 case 2:
                     ProductManager.addProduct();
