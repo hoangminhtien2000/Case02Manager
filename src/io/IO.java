@@ -6,7 +6,6 @@ import model.Account;
 import model.Product;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,5 +76,4 @@ public class IO {
             System.out.println();
         }
     }
-
 }

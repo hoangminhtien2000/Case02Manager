@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
 public class AccountManager {
     static Scanner scanner = new Scanner(System.in);
     static List<Account> accounts = new LinkedList<>();
-    static List<Account> bin=new LinkedList<>();
+    static List<Account> bin = new LinkedList<>();
+
     static {
         boolean checkisAdmin = false;
         for (Account account : accounts) {
@@ -56,11 +57,11 @@ public class AccountManager {
         }
     }
 
-    public static void showListBin(){
-            System.out.println("\nDanh sách tài khoản đã xoá: ");
-            System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
-            for (Account account : bin) {
-                System.out.println(account.toString());
+    public static void showListBin() {
+        System.out.println("\nDanh sách tài khoản đã xoá: ");
+        System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
+        for (Account account : bin) {
+            System.out.println(account.toString());
 
         }
     }
@@ -96,9 +97,9 @@ public class AccountManager {
 //    }
 
     public static String getUsername() {
-        String username="";
+        String username = "";
         while (true) {
-            String string= """
+            String string = """
                     Nhập Username:
                     Lưu ý: Có từ '6-31' kí tự, bắt đầu '0-9, a-z, A-z' có đuôi '@.tien'.""";
             System.out.println(string);
@@ -106,7 +107,7 @@ public class AccountManager {
             boolean username1 = Pattern.matches("[0-9a-zA-Z@\\.]{6,31}", username);
             boolean username2 = Pattern.matches("[0-9a-zA-Z]*@\\.tien", username);
             if (username1 && username2) break;
-            else{
+            else {
                 System.out.println("Nhập không đúng định dạng!");
                 System.out.print("\nNhấn ENTER để nhập lại");
                 scanner.nextLine();
@@ -116,9 +117,9 @@ public class AccountManager {
     }
 
     public static String getPassword() {
-        String password="";
+        String password = "";
         while (true) {
-            String string= """
+            String string = """
                     Nhập Password:
                     Lưu ý: Có '6-31' kí tự, các kí tự chỉ bao gồm '0-9, a-z, A-z', có ít nhất 1 số và 1 chữ.""";
             System.out.println(string);
@@ -127,7 +128,7 @@ public class AccountManager {
             boolean password2 = Pattern.matches("[0-9a-zA-Z]*[0-9]+[0-9a-zA-Z]*", password);
             boolean password3 = Pattern.matches("[0-9a-zA-Z]*[a-zA-Z]+[0-9a-zA-Z]*", password);
             if (password1 && password2 && password3) break;
-            else{
+            else {
                 System.out.println("Nhập không đúng định dạng!");
                 System.out.print("\nNhấn ENTER để nhập lại");
                 scanner.nextLine();
@@ -143,11 +144,32 @@ public class AccountManager {
         String username;
         do {
             index = -1;
-            username=getUsername();
+            username = getUsername();
             for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).getUsername().equals(username)&&bin.get(i).getName().equals(username))
+                if (accounts.get(i).getUsername().equals(username)){
                     index = i;
+                    break;
+                }
             }
+            for (int i = 0; i < bin.size(); i++) {
+                if (bin.get(i).getUsername().equals(username)){
+                    index = i;
+                    break;
+                }
+            }
+
+//            int maxSize = accounts.size()> bin.size()? accounts.size() : bin.size();
+//            for (int j = 0; j < maxSize; j++) {
+//                if (j< accounts.size() && accounts.get(j).getUsername().equals(username)){
+//                    index = 1;
+//                    break;
+//                }
+//                if (j< bin.size() && bin.get(j).getUsername().equals(username)){
+//                    index = 1;
+//                    break;
+//                }
+//            }
+
             if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
         } while (index != -1);
         String password = getPassword();
@@ -249,7 +271,7 @@ public class AccountManager {
         return -1;
     }
 
-    public static int findID(){
+    public static int findID() {
         int id;
         do {
             try {
@@ -281,9 +303,9 @@ public class AccountManager {
         if (count == 0) System.out.printf("Không có tài khoản nào có tên '%s'\n", name);
     }
 
-    public static void delete() {
+    public static void lock() {
         int index;
-        System.out.println("Nhập thông tin tài khoản muốn xoá: ");
+        System.out.println("Nhập thông tin tài khoản muốn khoá: ");
         index = IndexAccount();
         if (index < 0) {
             System.out.println("Tài khoản không tồn tại.");
@@ -291,7 +313,7 @@ public class AccountManager {
             scanner.nextLine();
         } else {
             if (accounts.get(index).getUsername().equals("tien@.tien") && accounts.get(index).getPassword().equals("tien123")) {
-                System.out.println("Không cho phép xoá tài khoản này!");
+                System.out.println("Không cho phép khoá tài khoản này!");
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             } else {
@@ -313,13 +335,13 @@ public class AccountManager {
         }
     }
 
-    public static void deleteAccount() {
+    public static void lockAccount() {
         if (accounts.size() == 0) {
             System.out.println("Danh sách không có tài khoản nào! Mời tạo tài khoản.");
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            delete();
+            lock();
         }
     }
 
@@ -335,7 +357,7 @@ public class AccountManager {
         }
     }
 
-    public static void restore(){
+    public static void restore() {
         int index;
         System.out.println("Nhập thông tin tài khoản muốn khôi phục: ");
         index = findID();
@@ -346,9 +368,32 @@ public class AccountManager {
         } else {
             System.out.printf("Đã khôi phục Account có Username '%s' ", bin.get(index).getUsername());
             accounts.add(bin.remove(index));
-            Collections.sort(accounts,new SortAccount_ID());
+            Collections.sort(accounts, new SortAccount_ID());
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }
+    }
+
+    public static void deleteAccount() {
+        int index;
+        System.out.println("Nhập thông tin tài khoản muốn xoá: ");
+        index = findID();
+        if (index == -1) {
+            System.out.println("Tài khoản không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+            System.out.printf("Đã xoá Account có Username '%s' khỏi thùng rác ", bin.get(index).getUsername());
+            bin.remove(index);
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        }
+    }
+
+    public static void clearBin() {
+        bin.clear();
+        System.out.println("Đã xoá toàn bộ tài khoản trong Bin.");
+        System.out.println("Nhấn Enter để tiếp tục");
+        scanner.nextLine();
     }
 }

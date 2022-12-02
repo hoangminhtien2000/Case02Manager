@@ -15,9 +15,9 @@ public  class AdminLogin {
                     ----------------Quản lý tài khoản------------------
                     1. Danh sách tài khoản
                     2. Sửa mật khẩu
-                    3. Xoá tài khoản
+                    3. Khoá tài khoản
                     4. Tìm tài khoản(Theo tên gần đúng)
-                    5. Khôi phục tài khoản
+                    5. Thùng rác
                     6. Quay lại""";
             System.out.println(string);
             int choice;
@@ -38,7 +38,7 @@ public  class AdminLogin {
                     AccountManager.editInformationAccount();
                     break;
                 case 3:
-                    AccountManager.deleteAccount();
+                    AccountManager.lockAccount();
                     break;
                 case 4:
                     AccountManager.findAccount();
@@ -49,11 +49,49 @@ public  class AdminLogin {
                         System.out.print("\nNhấn ENTER để tiếp tục");
                         scanner.nextLine();
                     } else {
-                        AccountManager.showListBin();
-                        AccountManager.restore();
+                        managerBin();
                     }
                     break;
                 case 6:
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static void managerBin(){
+        while (true) {
+            String string = """
+                    ----------------Quản lý thùng rác------------------
+                    1. Khôi phục tài khoản
+                    2. Xoá tài khoản khỏi thùng rác
+                    3. Dọn dẹp thùng rác.
+                    4. Quay lại""";
+            System.out.println(string);
+            int choice;
+            do {
+                try {
+                    System.out.println("Mời nhập lựa chọn: ");
+                    choice = Integer.parseInt(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số!");
+                }
+            } while (true);
+            switch (choice) {
+                case 1:
+                    System.out.println("\n----------------Khôi phục tài khoản--------------");
+                    AccountManager.showListBin();
+                    AccountManager.restore();
+                    break;
+                case 2:
+                    AccountManager.deleteAccount();
+                    break;
+                case 3:
+                    AccountManager.clearBin();
+                    break;
+                case 4:
                     return;
                 default:
                     break;
@@ -65,12 +103,13 @@ public  class AdminLogin {
         while (true) {
             String string = """
                     ------------------Quản lý sản phẩm-----------------
-                    1. Thêm sản phẩm                
-                    2. Xoá sản phẩm
-                    3. Danh sách sản phẩm
+                    1. Danh sách sản phẩm                
+                    2. Thêm sản phẩm
+                    3. Xoá sản phẩm
                     4. Sắp xếp sản phẩm theo giá
-                    5. Thêm số lượng sản phẩm
-                    6. Quay lại""";
+                    5. Thay đổi số lượng sản phẩm
+                    6. Thay dổi giá của sản phẩm
+                    7. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -85,27 +124,32 @@ public  class AdminLogin {
 
             switch (choice) {
                 case 1:
-                    ProductManager.addProduct();
-                    break;
-                case 2:
-                    ProductManager.delete();
-                    break;
-                case 3:
                     System.out.println("\nDanh sách sản phẩm: ");
                     ProductManager.showProduct();
                     System.out.print("\nNhấn ENTER để tiếp tục");
                     scanner.nextLine();
                     break;
+                case 2:
+                    ProductManager.addProduct();
+                    break;
+                case 3:
+                    ProductManager.delete();
+                    break;
                 case 4:
-                    System.out.println("\nDanh sách sản phẩm: ");
+                    System.out.println("\nDanh sách sản phẩm sắp xếp theo mức giá: ");
                     ProductManager.showProductSortPrice();
                     System.out.print("\nNhấn ENTER để tiếp tục");
                     scanner.nextLine();
                     break;
                 case 5:
-                    ProductManager.addNumberProduct();
+                    System.out.println("\n----------------Thay đổi số lượng của sản phẩm--------------");
+                    ProductManager.editNumberProduct();
                     break;
                 case 6:
+                    System.out.println("\n----------------Thay đổi giá của sản phẩm--------------");
+                    ProductManager.editPriceProduct();
+                    break;
+                case 7:
                     return;
                 default:
                     break;

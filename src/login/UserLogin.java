@@ -2,7 +2,6 @@ package login;
 
 import manager.ProductManager;
 
-import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -41,7 +40,6 @@ public class UserLogin {
             }
         }
     }
-
 
     public static void loginUser() {
         while (true) {

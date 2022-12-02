@@ -112,7 +112,7 @@ public class ProductManager {
     }
 
     public static Product createProduct() {
-        System.out.println("Nhập thông tin sản phẩm! ");
+        System.out.println("Nhập thông tin sản phẩm muốn thêm! ");
         int id = products.get(products.size() - 1).getId() + 1;
         int index;
         String name;
@@ -205,9 +205,35 @@ public class ProductManager {
         }
     }
 
-    public static void addNumberProduct() {
+    public static void editNumberProduct() {
         showProduct();
         int number;
+        int index;
+        index = IndexProduct();
+        if (index == -1) {
+            System.out.println("Sản phẩm không tồn tại.");
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        } else {
+                do {
+                    try {
+                        System.out.println("Nhập số lượng sản phẩm muốn thêm: ");
+                        number = Integer.parseInt(scanner.nextLine());
+                        break;
+                    } catch (InputMismatchException | NumberFormatException e) {
+                        System.out.println("Phải nhập số!");
+                    }
+                } while (true);
+            products.get(index).addNumber(number);
+            System.out.printf("Đã thêm %d '%s' vào danh sách sản phẩm.", number, products.get(index).getName());
+            System.out.print("\nNhấn ENTER để tiếp tục");
+            scanner.nextLine();
+        }
+    }
+
+    public static void editPriceProduct(){
+        showProduct();
+        double price;
         int index;
         index = IndexProduct();
         if (index == -1) {
@@ -218,23 +244,22 @@ public class ProductManager {
             do {
                 do {
                     try {
-                        System.out.println("Nhập số lượng sản phẩm muốn thêm: ");
-                        number = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Nhập gíá mới của sản phẩm: ");
+                        price = Double.parseDouble(scanner.nextLine());
                         break;
                     } catch (InputMismatchException | NumberFormatException e) {
                         System.out.println("Phải nhập số!");
                     }
                 } while (true);
-                if (number <= 0) {
-                    System.out.println("\nMời nhập lại số lượng sản phẩm");
-                }
-            } while (number <= 0);
-            products.get(index).addNumber(number);
-            System.out.printf("Đã thêm %d '%s' vào danh sách sản phẩm.", number, products.get(index).getName());
+                if (price<0) System.out.println("Giá của sản phẩm không được là số âm.");
+            }while (price<0);
+            products.get(index).setPrice(price);
+            System.out.printf("Đã sửa giá của sản phẩm '%s'.", products.get(index).getName());
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         }
     }
+
 
     public static void totalBillProduct() {
         System.out.println("Nhập thông tin sản phẩm muốn mua.");
