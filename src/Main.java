@@ -51,7 +51,7 @@ public class Main {
                     }
                     break;
                 case 2:
-                    AccountManager.addUser();
+                    AccountManager.register();
                     break;
                 case 3:
                     IO.writeAccount();

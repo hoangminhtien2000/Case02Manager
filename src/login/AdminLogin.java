@@ -133,6 +133,8 @@ public  class AdminLogin {
             switch (choice) {
                 case 1:
                     ProductManager.showProduct();
+                    System.out.print("\nNhấn ENTER để tiếp tục");
+                    scanner.nextLine();
                     break;
                 case 2:
                     ProductManager.addProduct();

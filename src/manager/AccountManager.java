@@ -71,11 +71,6 @@ public class AccountManager {
         }
     }
 
-    public static void addUser() {
-        Account users = createAccount(false);
-        accounts.add(users);
-    }
-
 //    public static void addAdminUser() {
 //        String string = """
 //                \t1. Admin:
@@ -156,7 +151,6 @@ public class AccountManager {
         }
     }
 
-
     public static Account createAccount(boolean isAdmin) {
         System.out.println("\nNhập thông tin tài khoản: ");
         int id = findMaxID()  + 1;
@@ -165,31 +159,29 @@ public class AccountManager {
         do {
             index = -1;
             username = getUsername();
-            for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).getUsername().equals(username)){
-                    index = i;
-                    break;
-                }
-            }
-            for (int i = 0; i < bin.size(); i++) {
-                if (bin.get(i).getUsername().equals(username)){
-                    index = i;
-                    break;
-                }
-            }
-
-//            int maxSize = accounts.size()> bin.size()? accounts.size() : bin.size();
-//            for (int j = 0; j < maxSize; j++) {
-//                if (j< accounts.size() && accounts.get(j).getUsername().equals(username)){
-//                    index = 1;
-//                    break;
-//                }
-//                if (j< bin.size() && bin.get(j).getUsername().equals(username)){
-//                    index = 1;
+//            for (int i = 0; i < accounts.size(); i++) {
+//                if (accounts.get(i).getUsername().equals(username)){
+//                    index = i;
 //                    break;
 //                }
 //            }
-
+//            for (int i = 0; i < bin.size(); i++) {
+//                if (bin.get(i).getUsername().equals(username)){
+//                    index = i;
+//                    break;
+//                }
+//            }
+            int maxSize = Math.max(accounts.size(), bin.size());
+            for (int i = 0; i < maxSize; i++) {
+                if (i< accounts.size() && accounts.get(i).getUsername().equals(username)){
+                    index = 1;
+                    break;
+                }
+                if (i< bin.size() && bin.get(i).getUsername().equals(username)){
+                    index = 1;
+                    break;
+                }
+            }
             if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
         } while (index != -1);
         String password = getPassword();
@@ -343,6 +335,11 @@ public class AccountManager {
                 scanner.nextLine();
             }
         }
+    }
+
+    public static void register() {
+        Account users = createAccount(false);
+        accounts.add(users);
     }
 
     public static void editInformationAccount() {

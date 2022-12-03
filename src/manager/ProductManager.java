@@ -46,8 +46,6 @@ public class ProductManager {
             for (Product product : products) {
                 System.out.println(product.toString());
             }
-            System.out.print("\nNhấn ENTER để tiếp tục");
-            scanner.nextLine();
         }
     }
 
