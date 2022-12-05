@@ -2,7 +2,6 @@ package manager;
 
 import model.Account;
 import model.Admin;
-import model.Product;
 import model.User;
 import sort.SortAccount_ID;
 
@@ -307,7 +306,7 @@ public class AccountManager {
         String name = scanner.nextLine();
         System.out.printf("\n%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
         for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).getName().contains(name)) {
+            if (accounts.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
                 System.out.println(accounts.get(i).toString());
                 count++;
             }
