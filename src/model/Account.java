@@ -9,7 +9,6 @@ public class Account implements Serializable {
     private String name;
     private int age;
     private String gender;
-    private static int countId = 0;
 
     public Account() {
     }

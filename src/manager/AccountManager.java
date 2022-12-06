@@ -47,13 +47,11 @@ public class AccountManager {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.println("\nDanh sách tài khoản: ");
+            System.out.println("\n-------------------------------Danh sách tài khoản----------------------------------");
             System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
             for (Account account : accounts) {
                 System.out.println(account.toString());
             }
-            System.out.print("\nNhấn ENTER để tiếp tục");
-            scanner.nextLine();
         }
     }
     public static void showListBin() {
@@ -62,7 +60,7 @@ public class AccountManager {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.println("\nDanh sách tài khoản đã bị khoá: ");
+            System.out.println("\n----------------------------Danh sách tài khoản đã bị khoá-------------------------");
             System.out.printf("%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
             for (Account account : bin) {
                 System.out.println(account.toString());
@@ -99,7 +97,7 @@ public class AccountManager {
         String username = "";
         while (true) {
             String string = """
-                    Nhập Username:
+                    Nhập tên đăng nhập:
                     Lưu ý: Có từ '6-31' kí tự, bắt đầu '0-9, a-z, A-Z' có đuôi '@.tien'.""";
             System.out.println(string);
             username = scanner.nextLine();
@@ -119,7 +117,7 @@ public class AccountManager {
         String password = "";
         while (true) {
             String string = """
-                    Nhập Password:
+                    Nhập mật khẩu:
                     Lưu ý: Có '6-31' kí tự, các kí tự chỉ bao gồm '0-9, a-z, A-Z', có ít nhất 1 số và 1 chữ.""";
             System.out.println(string);
             password = scanner.nextLine();
@@ -138,7 +136,7 @@ public class AccountManager {
 
     public static int findMaxID() {
         if (bin.isEmpty()) {
-            return 0;
+            return accounts.get(accounts.size() - 1).getId();
         } else {
             int max = accounts.get(accounts.size() - 1).getId();
             if (!bin.isEmpty()){
@@ -184,13 +182,13 @@ public class AccountManager {
             if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
         } while (index != -1);
         String password = getPassword();
-        System.out.println("Nhập Name: ");
+        System.out.println("Nhập tên: ");
         String name = scanner.nextLine();
         int age;
         do {
             do {
                 try {
-                    System.out.println("Nhập Age: ");
+                    System.out.println("Nhập tuổi: ");
                     age = Integer.parseInt(scanner.nextLine());
                     break;
                 } catch (InputMismatchException | NumberFormatException e) {
@@ -214,7 +212,7 @@ public class AccountManager {
         String gender;
         int choise;
         String string = """
-                Nhập Gender:
+                Nhập giới tính:
                 \t1. Nam.
                 \t2. Nữ.""";
         System.out.println(string);
@@ -259,10 +257,10 @@ public class AccountManager {
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             } else {
-                System.out.println("Nhập Password mới:");
+                System.out.println("Nhập mật khẩu mới:");
                 String password = scanner.nextLine();
                 accounts.get(index).setPassword(password);
-                System.out.printf("Đã sửa Password của Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+                System.out.printf("Đã sửa mật khẩu của tài khoản có tên đăng nhập '%s' trong danh sách", accounts.get(index).getUsername());
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             }
@@ -271,9 +269,9 @@ public class AccountManager {
     }
 
     public static int IndexAccount() {
-        System.out.println("Nhập Username:");
+        System.out.println("Nhập tên đăng nhập:");
         String username = scanner.nextLine();
-        System.out.println("Nhập Password:");
+        System.out.println("Nhập mật khẩu:");
         String password = scanner.nextLine();
         for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).getUsername().equals(username) && accounts.get(i).getPassword().equals(password))
@@ -302,7 +300,7 @@ public class AccountManager {
 
     public static void Account1() {
         int count = 0;
-        System.out.println("Nhập Tên nhân viên muốn tìm:");
+        System.out.println("Nhập tên tài khoản muốn tìm:");
         String name = scanner.nextLine();
         System.out.printf("\n%-15s%-5s%-15s%-15s%-20s%-5s%-8s\n", "AccountType", "ID", "UserName", "Password", "Name", "Age", "Gender");
         for (int i = 0; i < accounts.size(); i++) {
@@ -328,7 +326,7 @@ public class AccountManager {
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
             } else {
-                System.out.printf("Đã khoá Account có Username '%s' trong danh sách", accounts.get(index).getUsername());
+                System.out.printf("Đã khoá tài khoản có tên đăng nhập '%s' trong danh sách", accounts.get(index).getUsername());
                 bin.add(accounts.remove(index));
                 System.out.print("\nNhấn ENTER để tiếp tục");
                 scanner.nextLine();
@@ -382,7 +380,7 @@ public class AccountManager {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.printf("Đã khôi phục Account có Username '%s' ", bin.get(index).getUsername());
+            System.out.printf("Đã khôi phục tài khoản có tên đăng nhập '%s' ", bin.get(index).getUsername());
             accounts.add(bin.remove(index));
             Collections.sort(accounts, new SortAccount_ID());
             System.out.print("\nNhấn ENTER để tiếp tục");
@@ -399,7 +397,7 @@ public class AccountManager {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
-            System.out.printf("Đã xoá Account có Username '%s' khỏi thùng rác ", bin.get(index).getUsername());
+            System.out.printf("Đã xoá tài khoản có tên đăng nhập '%s' khỏi thùng rác ", bin.get(index).getUsername());
             bin.remove(index);
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();

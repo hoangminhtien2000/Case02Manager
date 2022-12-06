@@ -18,8 +18,7 @@ public class Main {
         while (true) {
             String string = """
                     \n------------------------PHẦN MỀM QUẢN LÝ TÀI KHOẢN---------------------
-                                         ~ Người thực hiện: Hoàng Minh Tiến ~
-                    \nLOGIN/REGISTER:
+                                         ~ Người thực hiện: Hoàng Minh Tiến ~                   
                     1. Đăng nhập:
                     2. Đăng kí:
                     3. Thoát.""";

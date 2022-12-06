@@ -42,6 +42,7 @@ public class ProductManager {
             System.out.print("\nNhấn ENTER để tiếp tục");
             scanner.nextLine();
         } else {
+            System.out.println("\n---------------------------------Danh sách sản phẩm--------------------------------");
             System.out.printf("%-5s%-15s%-10s%s\n", "STT", "Tên sản phẩm", "Số lượng", "Giá");
             for (Product product : products) {
                 System.out.println(product.toString());
