@@ -19,9 +19,9 @@ public class Main {
             String string = """
                     \n------------------------PHẦN MỀM QUẢN LÝ TÀI KHOẢN---------------------
                                          ~ Người thực hiện: Hoàng Minh Tiến ~                   
-                    1. Đăng nhập:
-                    2. Đăng kí:
-                    3. Thoát.""";
+                    1. Đăng nhập
+                    2. Đăng kí
+                    3. Thoát""";
             System.out.println(string);
             int choice;
             do {
