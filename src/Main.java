@@ -1,9 +1,11 @@
 import io.IO;
+import login.Admin2Login;
 import login.AdminLogin;
 import login.UserLogin;
 import manager.AccountManager;
 
 import model.Admin;
+import model.Admin2;
 import model.User;
 
 import java.util.InputMismatchException;
@@ -39,6 +41,9 @@ public class Main {
                     if (index != -1) {
                         if (AccountManager.getAccounts().get(index) instanceof Admin admin) {
                             AdminLogin.loginAdmin();
+                        }
+                        if (AccountManager.getAccounts().get(index) instanceof Admin2 admin2) {
+                            Admin2Login.loginAdmin2();
                         }
                         if (AccountManager.getAccounts().get(index) instanceof User user) {
                             UserLogin.loginUser();

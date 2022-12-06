@@ -14,11 +14,12 @@ public  class AdminLogin {
             AccountManager.showlistAccount();
             String string = """
                     \n----------------Quản lý tài khoản------------------
-                    1. Sửa mật khẩu
-                    2. Khoá tài khoản
-                    3. Tìm tài khoản(Theo tên gần đúng)
-                    4. Thùng rác
-                    5. Quay lại""";
+                    1. Tạo tài khoản Admin2
+                    2. Sửa mật khẩu
+                    3. Khoá tài khoản
+                    4. Tìm tài khoản(Theo tên gần đúng)
+                    5. Thùng rác
+                    6. Quay lại""";
             System.out.println(string);
             int choice;
             do {
@@ -32,15 +33,18 @@ public  class AdminLogin {
             } while (true);
             switch (choice) {
                 case 1:
-                    AccountManager.editInformationAccount();
+                    AccountManager.admin2create();
                     break;
                 case 2:
-                    AccountManager.lockAccount();
+                    AccountManager.editInformationAccount();
                     break;
                 case 3:
-                    AccountManager.findAccount();
+                    AccountManager.lockAccount();
                     break;
                 case 4:
+                    AccountManager.findAccount();
+                    break;
+                case 5:
                     if (AccountManager.getBin().isEmpty()) {
                         System.out.println("Chưa có tài khoản nào bị khoá.");
                         System.out.print("\nNhấn ENTER để tiếp tục");
@@ -49,7 +53,7 @@ public  class AdminLogin {
                         managerBin();
                     }
                     break;
-                case 5:
+                case 6:
                     return;
                 default:
                     break;

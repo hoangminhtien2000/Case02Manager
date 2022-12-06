@@ -2,6 +2,7 @@ package manager;
 
 import model.Account;
 import model.Admin;
+import model.Admin2;
 import model.User;
 import sort.SortAccount_ID;
 
@@ -208,6 +209,51 @@ public class AccountManager {
         }
     }
 
+
+    public static Account createAccount2() {
+        System.out.println("\nNhập thông tin tài khoản: ");
+        int id = findMaxID()  + 1;
+        int index;
+        String username;
+        do {
+            index = -1;
+            username = getUsername();
+            int maxSize = Math.max(accounts.size(), bin.size());
+            for (int i = 0; i < maxSize; i++) {
+                if (i< accounts.size() && accounts.get(i).getUsername().equals(username)){
+                    index = 1;
+                    break;
+                }
+                if (i< bin.size() && bin.get(i).getUsername().equals(username)){
+                    index = 1;
+                    break;
+                }
+            }
+            if (index != -1) System.out.println("\nTên đăng nhập đã tồn tài, mời nhập tên khác.");
+        } while (index != -1);
+        String password = getPassword();
+        System.out.println("Nhập tên: ");
+        String name = scanner.nextLine();
+        int age;
+        do {
+            do {
+                try {
+                    System.out.println("Nhập tuổi: ");
+                    age = Integer.parseInt(scanner.nextLine());
+                    break;
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Phải nhập số");
+                }
+            } while (true);
+            if (age < 10 || age > 130) System.out.println("Phải nhập số lớn hơn 10 và nhỏ hơn 130!");
+        } while (age < 10 || age > 130);
+        String gender;
+        gender = scanGender();
+            Account admins2 = new Admin2(id, username, password, name, age, gender);
+            return admins2;
+    }
+
+
     public static String scanGender() {
         String gender;
         int choise;
@@ -332,6 +378,10 @@ public class AccountManager {
                 scanner.nextLine();
             }
         }
+    }
+    public static void admin2create() {
+        Account admin2 = createAccount2();
+        accounts.add(admin2);
     }
 
     public static void register() {
