@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 
 public class AccountManager {
     static Scanner scanner = new Scanner(System.in);
-    static List<Account> accounts = new LinkedList<>();
-    static List<Account> bin = new LinkedList<>();
+    static LinkedList<Account> accounts = new LinkedList<>();
+    static LinkedList<Account> bin = new LinkedList<>();
 
-    static {
+    public static void checkListAccount() {
         boolean checkisAdmin = false;
         for (Account account : accounts) {
             if (account.getUsername().equals("tien@.tien") && account.getPassword().equals("tien123")) {
@@ -26,19 +26,19 @@ public class AccountManager {
         }
     }
 
-    public static List<Account> getBin() {
+    public static LinkedList<Account> getBin() {
         return bin;
     }
 
-    public static void setBin(List<Account> bin) {
+    public static void setBin(LinkedList<Account> bin) {
         AccountManager.bin = bin;
     }
 
-    public static List<Account> getAccounts() {
+    public static LinkedList<Account> getAccounts() {
         return accounts;
     }
 
-    public static void setAccounts(List<Account> accounts) {
+    public static void setAccounts(LinkedList<Account> accounts) {
         AccountManager.accounts = accounts;
     }
 
@@ -55,6 +55,7 @@ public class AccountManager {
             }
         }
     }
+
     public static void showListBin() {
         if (bin.isEmpty()) {
             System.out.println("Chưa có tài khoản nào bị xoá");
@@ -140,9 +141,9 @@ public class AccountManager {
             return accounts.get(accounts.size() - 1).getId();
         } else {
             int max = accounts.get(accounts.size() - 1).getId();
-            if (!bin.isEmpty()){
+            if (!bin.isEmpty()) {
                 for (Account account : bin) {
-                    if (account.getId()>max) max=account.getId();
+                    if (account.getId() > max) max = account.getId();
                 }
             }
             return max;
@@ -151,7 +152,7 @@ public class AccountManager {
 
     public static Account createAccount(boolean isAdmin) {
         System.out.println("\nNhập thông tin tài khoản: ");
-        int id = findMaxID()  + 1;
+        int id = findMaxID() + 1;
         int index;
         String username;
         do {
@@ -171,11 +172,11 @@ public class AccountManager {
 //            }
             int maxSize = Math.max(accounts.size(), bin.size());
             for (int i = 0; i < maxSize; i++) {
-                if (i< accounts.size() && accounts.get(i).getUsername().equals(username)){
+                if (i < accounts.size() && accounts.get(i).getUsername().equals(username)) {
                     index = 1;
                     break;
                 }
-                if (i< bin.size() && bin.get(i).getUsername().equals(username)){
+                if (i < bin.size() && bin.get(i).getUsername().equals(username)) {
                     index = 1;
                     break;
                 }
@@ -209,10 +210,9 @@ public class AccountManager {
         }
     }
 
-
     public static Account createAccount2() {
         System.out.println("\nNhập thông tin tài khoản: ");
-        int id = findMaxID()  + 1;
+        int id = findMaxID() + 1;
         int index;
         String username;
         do {
@@ -220,11 +220,11 @@ public class AccountManager {
             username = getUsername();
             int maxSize = Math.max(accounts.size(), bin.size());
             for (int i = 0; i < maxSize; i++) {
-                if (i< accounts.size() && accounts.get(i).getUsername().equals(username)){
+                if (i < accounts.size() && accounts.get(i).getUsername().equals(username)) {
                     index = 1;
                     break;
                 }
-                if (i< bin.size() && bin.get(i).getUsername().equals(username)){
+                if (i < bin.size() && bin.get(i).getUsername().equals(username)) {
                     index = 1;
                     break;
                 }
@@ -249,10 +249,9 @@ public class AccountManager {
         } while (age < 10 || age > 130);
         String gender;
         gender = scanGender();
-            Account admins2 = new Admin2(id, username, password, name, age, gender);
-            return admins2;
+        Account admins2 = new Admin2(id, username, password, name, age, gender);
+        return admins2;
     }
-
 
     public static String scanGender() {
         String gender;
@@ -379,6 +378,7 @@ public class AccountManager {
             }
         }
     }
+
     public static void admin2create() {
         Account admin2 = createAccount2();
         accounts.add(admin2);

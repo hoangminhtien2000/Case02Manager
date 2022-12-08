@@ -1,21 +1,24 @@
-import io.IO;
+import io.ReadWrite;
 import login.Admin2Login;
 import login.AdminLogin;
 import login.UserLogin;
 import manager.AccountManager;
 
-import model.Admin;
-import model.Admin2;
-import model.User;
+import manager.ProductManager;
+import model.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        IO.readAccount();
-        IO.readProduct();
-        IO.readBin();
+        ReadWrite<Account> readWriteAcc = new ReadWrite<>();
+        ReadWrite<Product> readWriteProd = new ReadWrite<>();
+        AccountManager.setAccounts(readWriteAcc.readFile(ReadWrite.srcAccount));
+        AccountManager.setBin(readWriteAcc.readFile(ReadWrite.srcBin));
+        ProductManager.setProducts(readWriteProd.readFile(ReadWrite.srcProduct));
+        AccountManager.checkListAccount();
+        ProductManager.checkListProduct();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String string = """
@@ -58,9 +61,9 @@ public class Main {
                     AccountManager.register();
                     break;
                 case 3:
-                    IO.writeAccount();
-                    IO.writeProduct();
-                    IO.writeBin();
+                    readWriteAcc.writeFile(AccountManager.getAccounts(), ReadWrite.srcAccount);
+                    readWriteAcc.writeFile(AccountManager.getBin(), ReadWrite.srcBin);
+                    readWriteProd.writeFile(ProductManager.getProducts(),ReadWrite.srcProduct);
                     System.exit(0);
                     break;
                 default:
